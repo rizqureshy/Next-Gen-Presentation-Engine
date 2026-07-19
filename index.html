@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover" />
+
+  <!-- ┌──────────────────────────────────────────────────────────────┐
+       │  TITLE — change per deck                                       │
+       └──────────────────────────────────────────────────────────────┘ -->
+  <title>Particle Deck — Template</title>
+  <meta name="description" content="A reusable 3D particle presentation engine. Duplicate a slide, set data-formation, write your content." />
+
+  <!-- Fonts loaded async so a slow/blocked CDN never render-blocks the deck
+       (system font fallback is defined in CSS) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" /></noscript>
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+
+  <!-- engine deps, vendored locally (offline-friendly) -->
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./assets/vendor/three/three.module.js",
+      "three/addons/": "./assets/vendor/three/addons/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ============================================================
+       ENGINE CHROME — leave as-is. Loader, background, controls.
+       ============================================================ -->
+  <div id="loader">
+    <div class="orb"></div>
+    <div class="lbl">Spinning up the universe…</div>
+  </div>
+
+  <canvas id="bg-canvas"></canvas>
+  <div class="cosmos-wash"></div>
+  <div class="vignette"></div>
+
+  <div class="progress"><div class="bar" id="bar"></div></div>
+  <header class="chrome brandbar">
+    <!-- BRAND — change the label per deck -->
+    <div class="logo"><span class="spark"></span> Particle Deck</div>
+    <div class="count"><b id="c-now">01</b> / <span id="c-tot">03</span></div>
+  </header>
+
+  <button class="nav-btn prev" id="prev" aria-label="Previous slide">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <button class="nav-btn next" id="next" aria-label="Next slide">
+    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+
+  <nav class="chrome dots" id="dots" aria-label="Slide navigation"></nav>
+
+  <!-- ============================================================
+       SLIDES — author here. One <section class="slide"> per slide.
+
+       Pick the particle artwork with data-formation:
+         orb · core · core-center · clusters:N · split
+         ring · grid · stream · burst
+       Optional camera nudge:  data-cam="x,y,z"
+
+       Layout helpers (add to <section>):  content (left) · center
+       Animate-in classes:  .reveal (text)   .pop (cards/panels)
+       Glowing key words:   <span class="gradient-text">word</span>
+
+       Full reference + component snippets: see AUTHORING.md
+       Dots / counter / nav update automatically from the slide count.
+       ============================================================ -->
+  <main id="stage">
+
+    <!-- ░░ 1 · COVER ░░ -->
+    <section class="slide cover center" data-slide="0" data-formation="orb">
+      <div class="slide-inner">
+        <span class="kicker reveal"><span class="dot"></span> Section · Subtitle</span>
+        <h1 class="reveal">Your <span class="gradient-text">headline</span> here</h1>
+        <p class="sub reveal">A one-line promise or summary for this presentation.</p>
+        <div class="presenter reveal"><span class="dot2"></span> <span><b>Presenter Name</b> · Team</span></div>
+        <div class="scroll-hint reveal"><span class="mouse"></span> scroll or use arrows</div>
+      </div>
+      <div class="eq-credit">© 2026 Your Org</div>
+    </section>
+
+    <!-- ░░ 2 · CONTENT (example: 3 cards over a cluster formation) ░░ -->
+    <section class="slide content" data-slide="1" data-formation="clusters:3">
+      <div class="slide-inner">
+        <div class="lead">
+          <span class="kicker reveal"><span class="dot"></span> Section label</span>
+          <h2 class="reveal">A clear <span class="gradient-text">point</span> for this slide</h2>
+          <p class="lede reveal">One or two sentences of context. Keep it tight; the cards carry the detail.</p>
+        </div>
+        <div class="cards c3">
+          <article class="card pop" style="--ic:linear-gradient(135deg,#2b88ff,#4a3fd0);--ac:#2b88ff;">
+            <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg></div>
+            <h3>Card one</h3><p>Short supporting copy for the first idea.</p>
+          </article>
+          <article class="card pop" style="--ic:linear-gradient(135deg,#7c6bff,#4a3fd0);--ac:#8b7bff;">
+            <div class="ic"><svg viewBox="0 0 24 24"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg></div>
+            <h3>Card two</h3><p>Short supporting copy for the second idea.</p>
+          </article>
+          <article class="card pop" style="--ic:linear-gradient(135deg,#18c8b6,#2b88ff);--ac:#18c8b6;">
+            <div class="ic"><svg viewBox="0 0 24 24"><path d="M9 16.2l-3.5-3.5-1.4 1.4L9 19 20 8l-1.4-1.4z"/></svg></div>
+            <h3>Card three</h3><p>Short supporting copy for the third idea.</p>
+          </article>
+        </div>
+        <p class="note reveal">Optional closing line. Use <b>bold</b> or a <span class="gradient-text">glow word</span> for emphasis.</p>
+      </div>
+      <div class="eq-credit">© 2026 Your Org</div>
+    </section>
+
+    <!-- ░░ 3 · CLOSING (burst finale) ░░ -->
+    <section class="slide content center" data-slide="2" data-formation="burst">
+      <div class="slide-inner">
+        <div class="lead">
+          <span class="kicker reveal"><span class="dot"></span> Wrap-up</span>
+          <h2 class="reveal">Thank <span class="gradient-text">you</span></h2>
+        </div>
+        <p class="cta reveal">Your call to action — <span class="gradient-text">let's talk.</span></p>
+      </div>
+      <div class="eq-credit">© 2026 Your Org</div>
+    </section>
+
+  </main>
+
+  <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>
