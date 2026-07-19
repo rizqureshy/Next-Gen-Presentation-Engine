@@ -41,7 +41,10 @@ IR (deck.json) ──composer──▶ deck HTML ──engine + theme──▶ l
 ```
 
 Scene vocabularies: **cosmos** `orb · core · core-center · clusters:N · split ·
-ring · grid · stream · burst` — **aurora** `dawn · drift · veil · dusk · nova`.
+ring · grid · stream · burst` — **aurora** `dawn · drift · veil · dusk · nova` —
+**lasers** `gate · pillars:N · sweep · tunnel · weave · strike` —
+**tiles** `wall · wave · columns:N · checker · spiral · cascade` —
+**ink** `drop · bloom:N · wash · collide · torrent · eruption`.
 
 ## Blocks
 

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover" />
+  <title>Kinetic Tiles — Effects Platform · Theme 04</title>
+  <meta name="description" content="A wall of 1,200 living 3D tiles that ripples, flips, and re-paints itself between slides." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232b88ff'/%3E%3Cstop offset='1' stop-color='%239b4dff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='24' height='24' rx='6' fill='url(%23g)'/%3E%3C/svg%3E" />
+
+  <!-- Fonts loaded async so a slow/blocked CDN never render-blocks the deck -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" /></noscript>
+
+  <link rel="stylesheet" href="../../platform/engine/deck.css" />
+  <link rel="stylesheet" href="../../platform/themes/tiles/tiles.css" />
+
+  <!-- engine deps, vendored locally (offline-friendly) -->
+  <script src="../../assets/vendor/gsap.min.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "../../assets/vendor/three/three.module.js",
+      "three/addons/": "../../assets/vendor/three/addons/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <div id="loader">
+    <div class="orb"></div>
+    <div class="lbl">Laying the tiles…</div>
+  </div>
+
+  <canvas id="bg-canvas"></canvas>
+  <div class="wash"></div>
+  <div class="vignette"></div>
+
+  <div class="progress"><div class="bar" id="bar"></div></div>
+  <header class="chrome brandbar">
+    <div class="logo"><span class="spark"></span> Effects Platform</div>
+    <div class="count"><b id="c-now">01</b> / <span id="c-tot">05</span></div>
+  </header>
+
+  <button class="nav-btn prev" id="prev" aria-label="Previous slide">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <button class="nav-btn next" id="next" aria-label="Next slide">
+    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+
+  <nav class="chrome dots" id="dots" aria-label="Slide navigation"></nav>
+
+  <main id="stage">
+
+    <section class="slide cover center" data-slide="0" data-scene="wall">
+      <div class="slide-inner">
+        <span class="kicker reveal"><span class="dot"></span> Effects Platform · Theme 04</span>
+          <h1 class="reveal">A wall that <span class="gradient-text">listens</span></h1>
+          <p class="sub reveal">Twelve hundred 3D tiles breathe behind your words — and flip in a ripple every time you move.</p>
+        <div class="presenter reveal"><span class="dot2"></span> <span><b>Kinetic Tiles</b> · Theme demo</span></div>
+        <div class="scroll-hint reveal"><span class="mouse"></span> scroll or use arrows</div>
+      </div>
+      <div class="eq-credit">© 2026 Effects Platform</div>
+    </section>
+
+    <section class="slide content" data-slide="1" data-scene="columns:3">
+      <div class="slide-inner">
+        <div class="lead">
+          <span class="kicker reveal"><span class="dot"></span> How it works</span>
+          <h2 class="reveal">One draw call, <span class="gradient-text">twelve hundred</span> tiles</h2>
+          <p class="lede reveal">An instanced mesh of rounded boxes with real lights — cheap to run, dimensional to look at.</p>
+        </div>
+        <div class="cards c3">
+          <article class="card pop" style="--ic:linear-gradient(135deg,#2b88ff,#4a3fd0);--ac:#2b88ff;"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3L2 9l10 6 10-6-10-6zm-7.5 8.7L2 13.5l10 6 10-6-2.5-1.8L12 16.2l-7.5-4.5z"/></svg></div><h3>Instanced</h3><p>One InstancedMesh renders the whole wall — the GPU barely notices.</p></article>
+          <article class="card pop" style="--ic:linear-gradient(135deg,#7c6bff,#4a3fd0);--ac:#8b7bff;"><div class="ic"><svg viewBox="0 0 24 24"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg></div><h3>Ripple flip</h3><p>A wavefront expands from center; each tile pops and flips 180° as it passes.</p></article>
+          <article class="card pop" style="--ic:linear-gradient(135deg,#18c8b6,#2b88ff);--ac:#18c8b6;"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 5c5 0 9.3 3 11 7-1.7 4-6 7-11 7S2.7 16 1 12c1.7-4 6-7 11-7zm0 3a4 4 0 100 8 4 4 0 000-8z"/></svg></div><h3>Palette swap</h3><p>Colors change mid-flip — the next scene arrives on the tiles' backs.</p></article>
+        </div>
+      </div>
+      <div class="eq-credit">© 2026 Effects Platform</div>
+    </section>
+
+    <section class="slide content center" data-slide="2" data-scene="spiral">
+      <div class="slide-inner">
+        <div class="lead">
+          <span class="kicker reveal"><span class="dot"></span> Scenes</span>
+          <h2 class="reveal">Patterns with a <span class="gradient-text">pulse</span></h2>
+        </div>
+        <div class="moves">
+          <div class="move pop"><span class="n">1</span><p><b>wall.</b> A calm breathing field with sparse lit accents — covers.</p></div>
+          <div class="move pop"><span class="n">2</span><p><b>columns:N.</b> N raised, lit bands for N parallel ideas.</p></div>
+          <div class="move pop"><span class="n">3</span><p><b>checker.</b> Alternating flip-sway — comparisons and data.</p></div>
+          <div class="move pop"><span class="n">4</span><p><b>spiral.</b> Rings ripple outward from the center — cycles.</p></div>
+          <div class="move pop"><span class="n">5</span><p><b>cascade.</b> Gold diagonals sweep the wall — finales.</p></div>
+        </div>
+      </div>
+      <div class="eq-credit">© 2026 Effects Platform</div>
+    </section>
+
+    <section class="slide content" data-slide="3" data-scene="wave">
+      <div class="slide-inner">
+        <div class="lead">
+          <span class="kicker reveal"><span class="dot"></span> Pipeline</span>
+          <h2 class="reveal">Content rides the <span class="gradient-text">wave</span></h2>
+          <p class="lede reveal">Decks come from HTML or Deck IR today — and from your PowerPoint next.</p>
+        </div>
+        <div class="flow reveal"><span class="stage">PowerPoint</span><span class="arrow">›</span><span class="stage">Deck IR</span><span class="arrow">›</span><span class="stage">Theme</span><span class="arrow">›</span><span class="stage">Ship</span></div>
+        <p class="note reveal">Slides without a scene are <b>art-directed automatically</b> from their content.</p>
+      </div>
+      <div class="eq-credit">© 2026 Effects Platform</div>
+    </section>
+
+    <section class="slide content center" data-slide="4" data-scene="cascade">
+      <div class="slide-inner">
+        <div class="lead">
+          <span class="kicker reveal"><span class="dot"></span> Wrap-up</span>
+          <h2 class="reveal">End on a <span class="gradient-text">cascade</span></h2>
+        </div>
+        <p class="cta reveal">Five themes, one contract — <span class="gradient-text">flip the wall</span>.</p>
+      </div>
+      <div class="eq-credit">© 2026 Effects Platform</div>
+    </section>
+
+  </main>
+
+  <script type="module">
+    import { mountDeck } from "../../platform/engine/engine.js";
+    import Theme from "../../platform/themes/tiles/tiles.js";
+    mountDeck(Theme);
+  </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "title": "Neon Lasers — Effects Platform · Theme 03",
+    "description": "Neon beams that sweep, converge, and strike — every slide staged like a concert.",
+    "brand": "Effects Platform",
+    "credit": "© 2026 Effects Platform",
+    "theme": "lasers",
+    "loaderText": "Charging the beams…"
+  },
+  "slides": [
+    {
+      "role": "cover",
+      "scene": "gate",
+      "blocks": [
+        { "type": "kicker", "text": "Effects Platform · Theme 03" },
+        { "type": "heading", "text": "Cut the dark with {light}" },
+        { "type": "lede", "text": "Neon beams that sweep, converge, and strike — every slide staged like a concert." },
+        { "type": "presenter", "name": "Neon Lasers", "role": "Theme demo" }
+      ]
+    },
+    {
+      "role": "content",
+      "scene": "pillars:3",
+      "blocks": [
+        { "type": "kicker", "text": "How it works" },
+        { "type": "heading", "text": "A fleet of {beams}" },
+        { "type": "lede", "text": "A pooled fleet of neon planes — hot white cores, soft colored falloff — restaged for every slide." },
+        { "type": "cards", "columns": 3, "items": [
+          { "icon": "bolt", "accent": "blue", "title": "Beams", "text": "Crossed additive planes read as volumetric light. No post-processing required." },
+          { "icon": "layers", "accent": "indigo", "title": "Scenes", "text": "gate · pillars · sweep · tunnel · weave · strike — pick per slide or let it art-direct." },
+          { "icon": "growth", "accent": "pink", "title": "Surge", "text": "A flash envelope peaks exactly when the engine swaps slides." }
+        ]}
+      ]
+    },
+    {
+      "role": "content",
+      "scene": "tunnel",
+      "blocks": [
+        { "type": "kicker", "text": "Pipeline" },
+        { "type": "heading", "text": "Down the {runway}" },
+        { "type": "lede", "text": "Rails of light recede to the vanishing point — the scene for journeys and pipelines." },
+        { "type": "flow", "stages": ["PowerPoint", "Deck IR", "Theme", "Ship"] },
+        { "type": "note", "text": "Same engine, same Deck IR — only the **world** changed." }
+      ]
+    },
+    {
+      "role": "content",
+      "scene": "weave",
+      "layout": "center",
+      "blocks": [
+        { "type": "kicker", "text": "Vocabulary" },
+        { "type": "heading", "text": "A lattice of {signal}" },
+        { "type": "moves", "items": [
+          { "lead": "gate.", "text": "A fanned portal of light — covers and openings." },
+          { "lead": "pillars:N.", "text": "N glowing columns for N parallel ideas." },
+          { "lead": "tunnel.", "text": "Receding rails — journeys and flows." },
+          { "lead": "weave.", "text": "Crossing lasers — data and structure." },
+          { "lead": "strike.", "text": "A radial burst for the finale." }
+        ]}
+      ]
+    },
+    {
+      "role": "closing",
+      "scene": "strike",
+      "blocks": [
+        { "type": "kicker", "text": "Wrap-up" },
+        { "type": "heading", "text": "Bring the {house lights}" },
+        { "type": "cta", "text": "One import swaps the whole world — {strike it}." }
+      ]
+    }
+  ]
+}

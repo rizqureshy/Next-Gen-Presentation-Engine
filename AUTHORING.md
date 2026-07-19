@@ -87,6 +87,39 @@ Also link the theme's CSS next to the engine's:
 | `dusk` | deep and quiet — the serious beat |
 | `nova` | bright pink-gold surge — finales |
 
+### Neon Lasers — stagings
+
+| Spec | Vibe / good for |
+|------|-----------------|
+| `gate` | a fanned portal of light — covers, openings |
+| `pillars:N` | N glowing columns — N parallel ideas |
+| `sweep` | slow searchlights — calm content |
+| `tunnel` | receding rails to the vanishing point — journeys, pipelines |
+| `weave` | crossing lasers — data, structure, comparisons |
+| `strike` | a radial burst — finales |
+
+### Kinetic Tiles — patterns
+
+| Spec | Vibe / good for |
+|------|-----------------|
+| `wall` | breathing field with sparse lit accents — covers |
+| `wave` | a traveling wave — calm content, flows |
+| `columns:N` | N raised, lit bands — N parallel ideas |
+| `checker` | alternating flip-sway — comparisons, data |
+| `spiral` | rings rippling from center — cycles |
+| `cascade` | gold diagonals sweep the wall — finales |
+
+### Liquid Ink — arrangements
+
+| Spec | Vibe / good for |
+|------|-----------------|
+| `drop` | one central bloom — covers, big statements |
+| `bloom:N` | N drops in a row — N parallel ideas |
+| `wash` | soft washes at the edges — calm content |
+| `collide` | blue meets pink — dualities, either/or |
+| `torrent` | a stream of small drops — pipelines, processes |
+| `eruption` | nine colors at once — finales |
+
 Scenes **morph** between slides, so order creates motion. Pair the scene with
 the slide's idea.
 

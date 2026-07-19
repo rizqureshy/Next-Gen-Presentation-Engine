@@ -16,13 +16,20 @@ are vendored, and decks deploy as-is to GitHub Pages.
 |---|---|---|---|
 | **Cosmos** | ~13k GPU particles morphing between formations, whirlwind transitions | `orb · core · core-center · clusters:N · split · ring · grid · stream · burst` | ✅ shipped |
 | **Aurora** | domain-warped silk-gradient skies that drift and surge | `dawn · drift · veil · dusk · nova` | ✅ shipped |
-| Neon Lasers | beams that draw the slide, selective bloom | — | 🔜 roadmap |
-| Liquid Ink | real-time fluid sim, ink splats bleeding like wet paper | — | 🔜 roadmap |
-| Kinetic Tiles | an instanced 3D tile wall that ripples and re-mosaics | — | 🔜 roadmap |
+| **Neon Lasers** | a pooled fleet of neon beams staged like a concert, flash-synced transitions | `gate · pillars:N · sweep · tunnel · weave · strike` | ✅ shipped |
+| **Kinetic Tiles** | 1,200 instanced 3D tiles that ripple-flip and re-paint between slides | `wall · wave · columns:N · checker · spiral · cascade` | ✅ shipped |
+| **Liquid Ink** | luminous ink splats that bloom, bleed, and dissolve in dark water | `drop · bloom:N · wash · collide · torrent · eruption` | ✅ shipped |
 
-**Demos:** root `index.html` is the Cosmos template deck ·
-[`decks/aurora-demo/`](decks/aurora-demo/) is the Aurora showcase (generated
-from Deck IR by the composer).
+| Lasers | Tiles | Ink |
+|---|---|---|
+| ![Lasers](docs/preview/05-lasers.png) | ![Tiles](docs/preview/06-tiles.png) | ![Ink](docs/preview/07-ink.png) |
+
+**Demos:** root `index.html` is the Cosmos template deck; each theme has a
+showcase in [`decks/`](decks/) (`aurora-demo`, `lasers-demo`, `tiles-demo`,
+`ink-demo`) generated from Deck IR by the composer — the IR source sits next
+to each deck as `deck.json` (aurora's is
+[`platform/compose/example-deck.json`](platform/compose/example-deck.json),
+doubling as the schema example).
 
 ## Make a deck
 
@@ -69,15 +76,14 @@ import in HTML). Dots, counter, and navigation update automatically.
 
 ```
 index.html                    # Cosmos template deck (GitHub Pages entry)
-decks/aurora-demo/            # Aurora showcase deck (composer output)
+decks/<theme>-demo/           # one showcase deck per theme (deck.json + composed index.html)
 platform/
   engine/
     engine.js                 # slide controller + navigation + GSAP flows
     theme.js                  # the Theme contract (scenes, sceneFor, choreography)
     deck.css                  # shared glass design system + chrome
-  themes/
-    cosmos/                   # particle field theme  (cosmos.js + cosmos.css)
-    aurora/                   # silk gradient theme   (aurora.js + aurora.css)
+  themes/                     # one folder per theme: <id>.js + <id>.css
+    cosmos/  aurora/  lasers/  tiles/  ink/
   compose/
     schema.md                 # Deck IR — the content schema
     composer.js               # Deck IR -> deck HTML (Node + browser)
@@ -91,7 +97,7 @@ docs/preview/                 # screenshots
 
 - [x] **Phase 0** — engine/theme split, Theme contract, Deck IR + composer
 - [x] **Phase 1a** — Aurora theme (proves the plug-in model)
-- [ ] **Phase 1b** — Neon Lasers, Liquid Ink, Kinetic Tiles themes
+- [x] **Phase 1b** — Neon Lasers, Kinetic Tiles, Liquid Ink themes
 - [ ] **Phase 2** — PowerPoint ingestion (client-side PPTX → Deck IR) + Studio UI
 - [ ] **Phase 3** — exporters: single-file HTML, bundle zip, one-click GitHub Pages
 - [ ] **Phase 4** — AI art direction, kinetic typography, presenter mode
