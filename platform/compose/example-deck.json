@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "title": "Aurora — Effects Platform · Theme 02",
+    "description": "Silk-gradient skies that drift, breathe, and surge between slides — the second theme on the effects platform.",
+    "brand": "Effects Platform",
+    "credit": "© 2026 Effects Platform",
+    "theme": "aurora",
+    "loaderText": "Warming the sky…"
+  },
+  "slides": [
+    {
+      "role": "cover",
+      "scene": "dawn",
+      "blocks": [
+        { "type": "kicker", "text": "Effects Platform · Theme 02" },
+        { "type": "heading", "text": "Present inside the {aurora}" },
+        { "type": "lede", "text": "Silk-gradient skies that drift, breathe, and surge between slides. One engine, many worlds — this is the second." },
+        { "type": "presenter", "name": "Aurora Silk", "role": "Theme demo" }
+      ]
+    },
+    {
+      "role": "content",
+      "scene": "drift",
+      "blocks": [
+        { "type": "kicker", "text": "The platform" },
+        { "type": "heading", "text": "One engine, {many skies}" },
+        { "type": "lede", "text": "Slides are plain HTML. Themes are plug-in worlds behind them. The engine drives navigation, reveals, and choreography for all of them." },
+        { "type": "cards", "columns": 3, "items": [
+          { "icon": "bolt", "accent": "blue", "title": "Engine", "text": "Slide controller, inputs, chrome, and GSAP flows — shared by every theme." },
+          { "icon": "layers", "accent": "indigo", "title": "Themes", "text": "Cosmos particles and Aurora silk today; lasers, ink, and tiles are next." },
+          { "icon": "doc", "accent": "teal", "title": "Deck IR", "text": "A JSON schema for decks. Write it by hand — or ingest it from PowerPoint." }
+        ]}
+      ]
+    },
+    {
+      "role": "content",
+      "scene": "veil",
+      "layout": "center",
+      "blocks": [
+        { "type": "kicker", "text": "Scenes" },
+        { "type": "heading", "text": "Slides declare their {weather}" },
+        { "type": "moves", "items": [
+          { "lead": "dawn.", "text": "A warm violet sunrise — covers and openings." },
+          { "lead": "drift.", "text": "Cool blue-teal silk for calm content." },
+          { "lead": "veil.", "text": "A concentrated curtain for one big idea." },
+          { "lead": "dusk.", "text": "Deep and quiet for the serious beat." },
+          { "lead": "nova.", "text": "A bright surge for the finale." }
+        ]}
+      ]
+    },
+    {
+      "role": "content",
+      "scene": "dusk",
+      "blocks": [
+        { "type": "kicker", "text": "Pipeline" },
+        { "type": "heading", "text": "From deck to {deployed}" },
+        { "type": "lede", "text": "The composer turns Deck IR into a zero-build page. PowerPoint ingestion lands next — upload, art-direct, ship." },
+        { "type": "flow", "stages": ["PowerPoint", "Deck IR", "Theme", "Ship"] },
+        { "type": "note", "text": "No bundler, no runtime network — **Three.js** and **GSAP** ride along, vendored." }
+      ]
+    },
+    {
+      "role": "closing",
+      "scene": "nova",
+      "blocks": [
+        { "type": "kicker", "text": "Wrap-up" },
+        { "type": "heading", "text": "Make it {glow}" },
+        { "type": "cta", "text": "Pick a theme, write HTML or JSON — {ship a universe}." }
+      ]
+    }
+  ]
+}

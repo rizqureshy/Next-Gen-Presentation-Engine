@@ -1,0 +1,16 @@
+/* ============================================================
+   aurora.css — Aurora Silk theme accents, layered over deck.css
+   ============================================================ */
+
+html, body { background: #04030c; }
+
+/* the silk sky is already colorful — tone the engine wash down */
+.cosmos-wash, .wash { opacity: 0.4; }
+
+/* slightly stronger focal scrim: silk can be brighter than particles */
+.slide-inner::before {
+  background: radial-gradient(ellipse 56% 58% at 50% 50%,
+    rgba(4, 3, 12, 0.72) 0%,
+    rgba(4, 3, 12, 0.4) 46%,
+    rgba(4, 3, 12, 0.0) 74%);
+}

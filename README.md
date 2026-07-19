@@ -1,79 +1,103 @@
-# Particle Engine — Presentation Platform
+# Effects Platform — themeable 3D presentation engine
 
-A reusable **3D particle presentation engine**. One WebGL particle field (~13,000 GPU
-points) morphs between formations as you move through slides, with a restrained cosmic
-theme, glowing key words, Framer-style flows, and full slide controls.
+A presentation platform where the deck's background is a **live WebGL world**.
+One shared engine drives navigation, Framer-style reveals, and transition
+choreography; pluggable **themes** render the world behind the slides and morph
+it on every slide change. Zero build, zero runtime network — Three.js + GSAP
+are vendored, and decks deploy as-is to GitHub Pages.
 
-This branch (`particle-engine-template`) is the **platform/template**. Decks are authored
-by writing HTML only — branch off this, fill in content, brand it, ship it.
+| Cosmos (particles) | Aurora (silk gradients) |
+|---|---|
+| ![Cosmos](docs/preview/01-cover.png) | ![Aurora](docs/preview/04-aurora.png) |
 
-![Template cover](docs/preview/01-cover.png)
+## Themes
+
+| Theme | Look | Scene vocabulary | Status |
+|---|---|---|---|
+| **Cosmos** | ~13k GPU particles morphing between formations, whirlwind transitions | `orb · core · core-center · clusters:N · split · ring · grid · stream · burst` | ✅ shipped |
+| **Aurora** | domain-warped silk-gradient skies that drift and surge | `dawn · drift · veil · dusk · nova` | ✅ shipped |
+| Neon Lasers | beams that draw the slide, selective bloom | — | 🔜 roadmap |
+| Liquid Ink | real-time fluid sim, ink splats bleeding like wet paper | — | 🔜 roadmap |
+| Kinetic Tiles | an instanced 3D tile wall that ripples and re-mosaics | — | 🔜 roadmap |
+
+**Demos:** root `index.html` is the Cosmos template deck ·
+[`decks/aurora-demo/`](decks/aurora-demo/) is the Aurora showcase (generated
+from Deck IR by the composer).
 
 ## Make a deck
 
 ```bash
-git checkout particle-engine-template
 git checkout -b deck/<your-deck-name>
-# edit index.html — duplicate slides, set data-formation, write content
-python3 -m http.server 8000   # preview at http://localhost:8000
+python3 -m http.server 8000     # preview at http://localhost:8000
 ```
 
-Each slide declares its particle artwork in HTML:
+**Author in HTML** — duplicate a slide `<section>`, pick a scene, write content
+(full guide: **[AUTHORING.md](AUTHORING.md)**):
 
 ```html
-<section class="slide content" data-formation="clusters:3">
+<section class="slide content" data-scene="clusters:3">
   <div class="slide-inner"> … your content … </div>
 </section>
 ```
 
-**Formations:** `orb · core · core-center · clusters:N · split · ring · grid · stream · burst`
+Omit `data-scene` and the theme art-directs the slide from its content
+(cover → hero scene, N cards → clusters, pipeline → stream, …).
 
-Dots, counter, and navigation update automatically from the number of slides.
-Full guide → **[AUTHORING.md](AUTHORING.md)**.
+**Or author in JSON (Deck IR)** and let the composer build the page
+(schema: **[platform/compose/schema.md](platform/compose/schema.md)**):
 
-| Whirlwind mid-transition (shapes dancing) | Content slide (crisp DOM + formation) |
-|---|---|
-| ![Whirlwind](docs/preview/02-whirlwind.png) | ![Content](docs/preview/03-content.png) |
+```bash
+node platform/compose/build-deck.mjs my-deck.json decks/my-deck/index.html
+```
 
-## What the engine gives you
+Swap the theme by changing one line (`"theme": "aurora"` in IR, or the theme
+import in HTML). Dots, counter, and navigation update automatically.
 
-- **Whirlwind transitions** — on each slide change the particle field swirls and dances as it
-  morphs between the slide shapes, and **surges forward to obscure the slide** mid-transition
-  before receding back behind to reveal the next one (arc displacement + an enveloped spin and
-  depth-surge that peak mid-transition and are zero at rest). Content is always crisp DOM.
-- **Restrained cosmic theme** — cool white/violet/blue with sparse accent pops
-- **Glowing, radiating key words** + crisp readable text (focal scrim + dark halo)
-- **Framer-style flows** — depth-based reveals, card cascades, per-slide camera moves
-- **Full controls** — arrows, ↑/↓, Space, Page keys, Home/End, wheel, touch swipe,
-  on-screen arrows, dot navigator, progress bar, mouse parallax
-- **Zero build, zero runtime network** — Three.js + GSAP vendored locally; deploys as-is to
-  GitHub Pages
+## What the engine gives every theme
 
-## Controls
-
-- **← / →**, **↑ / ↓**, **Space**, **Page Up/Down** — move between slides
-- **Home / End** — first / last slide
-- **Wheel / swipe** — advance · **Mouse move** — parallax
-
-## Tech
-
-- **[Three.js](https://threejs.org/) r160** — WebGL + custom particle shader
-- **[GSAP](https://gsap.com/) 3.12** — morph driver, camera, DOM reveals
-- Vanilla JS/CSS, single `index.html`, no framework or bundler
+- **Choreographed transitions** — the theme surges mid-morph while the DOM
+  dissolves and swaps at the obscured peak; content is always crisp DOM
+- **Framer-style flows** — depth-based text reveals, card cascades, staggers
+- **Full controls** — arrows, ↑/↓, Space, Page keys, Home/End, wheel, touch
+  swipe, on-screen arrows, dot navigator, progress bar, mouse parallax
+- **Glass design system** — cards, kickers, flows, quotes, numbered moves,
+  glowing key words, focal scrim for legibility
+- **Accessibility & perf tiers** — `prefers-reduced-motion` lowers particle
+  counts and disables surges
 
 ## Project layout
 
 ```
-index.html              # the deck (content) + import map
-AUTHORING.md            # how to author a deck on this engine
-assets/
-  css/styles.css        # theme tokens + glass components + chrome
-  js/scene.js           # particle engine + formation registry
-  js/app.js             # slide controller, navigation, GSAP flows
-  vendor/               # three.js + gsap (local, offline-friendly)
-docs/preview/           # template screenshots
+index.html                    # Cosmos template deck (GitHub Pages entry)
+decks/aurora-demo/            # Aurora showcase deck (composer output)
+platform/
+  engine/
+    engine.js                 # slide controller + navigation + GSAP flows
+    theme.js                  # the Theme contract (scenes, sceneFor, choreography)
+    deck.css                  # shared glass design system + chrome
+  themes/
+    cosmos/                   # particle field theme  (cosmos.js + cosmos.css)
+    aurora/                   # silk gradient theme   (aurora.js + aurora.css)
+  compose/
+    schema.md                 # Deck IR — the content schema
+    composer.js               # Deck IR -> deck HTML (Node + browser)
+    build-deck.mjs            # CLI: node build-deck.mjs <ir.json> <out.html>
+    example-deck.json         # the Aurora demo's source IR
+assets/vendor/                # three.js r160 + gsap 3.12 (local, offline-friendly)
+docs/preview/                 # screenshots
 ```
 
----
+## Roadmap
 
-*Built for the AI Activation sessions. Restrained "fun universe" theme.*
+- [x] **Phase 0** — engine/theme split, Theme contract, Deck IR + composer
+- [x] **Phase 1a** — Aurora theme (proves the plug-in model)
+- [ ] **Phase 1b** — Neon Lasers, Liquid Ink, Kinetic Tiles themes
+- [ ] **Phase 2** — PowerPoint ingestion (client-side PPTX → Deck IR) + Studio UI
+- [ ] **Phase 3** — exporters: single-file HTML, bundle zip, one-click GitHub Pages
+- [ ] **Phase 4** — AI art direction, kinetic typography, presenter mode
+
+## Tech
+
+- **[Three.js](https://threejs.org/) r160** — WebGL renderers per theme
+- **[GSAP](https://gsap.com/) 3.12** — the single motion driver (uniforms, camera, DOM)
+- Vanilla JS/CSS ES modules, no framework, no bundler

@@ -1,12 +1,12 @@
 /* ============================================================
-   scene.js — Morphing particle field (Three.js)
+   cosmos.js — "Particle Cosmos" theme (Three.js)
 
-   A single GPU particle system (~7k points) that flies between
-   formations per slide:
-     0  orb        — a glowing particle sphere (the "AI" core)
-     1  time-ring  — particles settle into a slow orbital ring
-     2  clusters   — they split into four week constellations
-     3  burst      — gather into a chest, then erupt like treasure
+   A single GPU particle field (13k points; 5k under reduced
+   motion) that morphs between registry formations per slide:
+   orb · core · core-center · clusters:N · split · ring · grid ·
+   stream · burst — plus a whirlwind transition (arc displacement,
+   enveloped spin, forward depth-surge) that peaks mid-morph and
+   is zero at rest.
 
    Restrained palette: mostly cool white/violet with sparse
    accent pops. Morphs are eased + arc-displaced so particles
@@ -14,6 +14,7 @@
    ============================================================ */
 
 import * as THREE from "three";
+import { ThemeBase } from "../../engine/theme.js";
 
 const C = {
   violet: new THREE.Color("#6b5bff"),
@@ -28,13 +29,28 @@ const ACCENTS = [C.violet, C.blue, C.teal, C.pink];
 const lerp = (a, b, t) => a + (b - a) * t;
 const GA = Math.PI * (3 - Math.sqrt(5)); // golden angle
 
-export class Cosmos {
-  constructor(canvas) {
-    this.canvas = canvas;
+export default class Cosmos extends ThemeBase {
+  static id = "cosmos";
+  static label = "Particle Cosmos";
+  static transition = { swapAt: 620, lock: 1500 };
+  static vocabulary = ["orb", "core", "core-center", "clusters", "split", "ring", "grid", "stream", "burst"];
+  static defaultScene = "orb";
+
+  static sceneFor(h) {
+    if (h.role === "cover") return "orb";
+    if (h.role === "closing") return "burst";
+    if (h.compare) return "split";
+    if (h.flow) return "stream";
+    if (h.cards >= 2) return `clusters:${Math.min(h.cards, 5)}`;
+    if (h.moves) return "ring";
+    return "core";
+  }
+
+  constructor(canvas, ctx = {}) {
+    super(canvas, ctx);
     this.clock = new THREE.Clock();
     this.pointer = new THREE.Vector2(0, 0);
     this.pointerTarget = new THREE.Vector2(0, 0);
-    this.reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     this.N = this.reduced ? 5000 : 13000;
 
     this._initRenderer();
@@ -411,23 +427,14 @@ export class Cosmos {
     };
   }
 
-  /**
-   * Public, data-driven entry point. Called once per slide.
-   * @param {string} spec   formation name, optionally "name:arg" (e.g. "clusters:4")
-   * @param {object} gsap   the GSAP instance
-   * @param {object} over   optional overrides: { cam:[x,y,z], spin, arc, dur, ease }
-   */
-  applyFormation(spec, gsap, over = {}) {
-    this.gsap = gsap;
-    const [nameRaw, arg] = String(spec || "orb").trim().split(":");
-    const def = this._registry[nameRaw] || this._registry.orb;
+  /* Theme contract: apply formation "name" (+ optional arg, e.g.
+     clusters:4). Overrides: { cam:[x,y,z], spin, arc, dur, ease } */
+  _applyScene(name, arg, over = {}) {
+    const def = this._registry[name] || this._registry.orb;
     this._morphTo(def.make(arg), { ...def.opts, ...over });
     const cam = over.cam || def.cam;
     this._camTo(cam[0], cam[1], cam[2]);
   }
-
-  /** List available formation names (handy for tooling/docs). */
-  get formationNames() { return Object.keys(this._registry); }
 
   _camTo(x, y, z) {
     this.camBase = { x, y, z };
@@ -454,6 +461,13 @@ export class Cosmos {
   start() {
     const tick = () => { this._frame(); this.renderer.render(this.scene, this.camera); this._raf = requestAnimationFrame(tick); };
     tick();
+  }
+
+  destroy() {
+    cancelAnimationFrame(this._raf);
+    this.points?.geometry.dispose();
+    this.points?.material.dispose();
+    this.renderer.dispose();
   }
 
   _frame() {

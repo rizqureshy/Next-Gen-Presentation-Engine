@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover" />
+  <title>Aurora — Effects Platform · Theme 02</title>
+  <meta name="description" content="Silk-gradient skies that drift, breathe, and surge between slides — the second theme on the effects platform." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232b88ff'/%3E%3Cstop offset='1' stop-color='%239b4dff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='24' height='24' rx='6' fill='url(%23g)'/%3E%3C/svg%3E" />
+
+  <!-- Fonts loaded async so a slow/blocked CDN never render-blocks the deck -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" /></noscript>
+
+  <link rel="stylesheet" href="../../platform/engine/deck.css" />
+  <link rel="stylesheet" href="../../platform/themes/aurora/aurora.css" />
+
+  <!-- engine deps, vendored locally (offline-friendly) -->
+  <script src="../../assets/vendor/gsap.min.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "../../assets/vendor/three/three.module.js",
+      "three/addons/": "../../assets/vendor/three/addons/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <div id="loader">
+    <div class="orb"></div>
+    <div class="lbl">Warming the sky…</div>
+  </div>
+
+  <canvas id="bg-canvas"></canvas>
+  <div class="wash"></div>
+  <div class="vignette"></div>
+
+  <div class="progress"><div class="bar" id="bar"></div></div>
+  <header class="chrome brandbar">
+    <div class="logo"><span class="spark"></span> Effects Platform</div>
+    <div class="count"><b id="c-now">01</b> / <span id="c-tot">05</span></div>
+  </header>
+
+  <button class="nav-btn prev" id="prev" aria-label="Previous slide">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <button class="nav-btn next" id="next" aria-label="Next slide">
+    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+
+  <nav class="chrome dots" id="dots" aria-label="Slide navigation"></nav>
+
+  <main id="stage">
+
+    <section class="slide cover center" data-slide="0" data-scene="dawn">
+      <div class="slide-inner">
+        <span class="kicker reveal"><span class="dot"></span> Effects Platform · Theme 02</span>
+          <h1 class="reveal">Present inside the <span class="gradient-text">aurora</span></h1>
+          <p class="sub reveal">Silk-gradient skies that drift, breathe, and surge between slides. One engine, many worlds — this is the second.</p>
+        <div class="presenter reveal"><span class="dot2"></span> <span><b>Aurora Silk</b> · Theme demo</span></div>
+        <div class="scroll-hint reveal"><span class="mouse"></span> scroll or use arrows</div>
+      </div>
+      <div class="eq-credit">© 2026 Effects Platform</div>
+    </section>
+
+    <section class="slide content" data-slide="1" data-scene="drift">
+      <div class="slide-inner">
+        <div class="lead">
+          <span class="kicker reveal"><span class="dot"></span> The platform</span>
+          <h2 class="reveal">One engine, <span class="gradient-text">many skies</span></h2>
+          <p class="lede reveal">Slides are plain HTML. Themes are plug-in worlds behind them. The engine drives navigation, reveals, and choreography for all of them.</p>
+        </div>
+        <div class="cards c3">
+          <article class="card pop" style="--ic:linear-gradient(135deg,#2b88ff,#4a3fd0);--ac:#2b88ff;"><div class="ic"><svg viewBox="0 0 24 24"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg></div><h3>Engine</h3><p>Slide controller, inputs, chrome, and GSAP flows — shared by every theme.</p></article>
+          <article class="card pop" style="--ic:linear-gradient(135deg,#7c6bff,#4a3fd0);--ac:#8b7bff;"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3L2 9l10 6 10-6-10-6zm-7.5 8.7L2 13.5l10 6 10-6-2.5-1.8L12 16.2l-7.5-4.5z"/></svg></div><h3>Themes</h3><p>Cosmos particles and Aurora silk today; lasers, ink, and tiles are next.</p></article>
+          <article class="card pop" style="--ic:linear-gradient(135deg,#18c8b6,#2b88ff);--ac:#18c8b6;"><div class="ic"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6V2zm8 1.5V8h4.5L14 3.5zM8 12h8v2H8v-2zm0 4h8v2H8v-2z"/></svg></div><h3>Deck IR</h3><p>A JSON schema for decks. Write it by hand — or ingest it from PowerPoint.</p></article>
+        </div>
+      </div>
+      <div class="eq-credit">© 2026 Effects Platform</div>
+    </section>
+
+    <section class="slide content center" data-slide="2" data-scene="veil">
+      <div class="slide-inner">
+        <div class="lead">
+          <span class="kicker reveal"><span class="dot"></span> Scenes</span>
+          <h2 class="reveal">Slides declare their <span class="gradient-text">weather</span></h2>
+        </div>
+        <div class="moves">
+          <div class="move pop"><span class="n">1</span><p><b>dawn.</b> A warm violet sunrise — covers and openings.</p></div>
+          <div class="move pop"><span class="n">2</span><p><b>drift.</b> Cool blue-teal silk for calm content.</p></div>
+          <div class="move pop"><span class="n">3</span><p><b>veil.</b> A concentrated curtain for one big idea.</p></div>
+          <div class="move pop"><span class="n">4</span><p><b>dusk.</b> Deep and quiet for the serious beat.</p></div>
+          <div class="move pop"><span class="n">5</span><p><b>nova.</b> A bright surge for the finale.</p></div>
+        </div>
+      </div>
+      <div class="eq-credit">© 2026 Effects Platform</div>
+    </section>
+
+    <section class="slide content" data-slide="3" data-scene="dusk">
+      <div class="slide-inner">
+        <div class="lead">
+          <span class="kicker reveal"><span class="dot"></span> Pipeline</span>
+          <h2 class="reveal">From deck to <span class="gradient-text">deployed</span></h2>
+          <p class="lede reveal">The composer turns Deck IR into a zero-build page. PowerPoint ingestion lands next — upload, art-direct, ship.</p>
+        </div>
+        <div class="flow reveal"><span class="stage">PowerPoint</span><span class="arrow">›</span><span class="stage">Deck IR</span><span class="arrow">›</span><span class="stage">Theme</span><span class="arrow">›</span><span class="stage">Ship</span></div>
+        <p class="note reveal">No bundler, no runtime network — <b>Three.js</b> and <b>GSAP</b> ride along, vendored.</p>
+      </div>
+      <div class="eq-credit">© 2026 Effects Platform</div>
+    </section>
+
+    <section class="slide content center" data-slide="4" data-scene="nova">
+      <div class="slide-inner">
+        <div class="lead">
+          <span class="kicker reveal"><span class="dot"></span> Wrap-up</span>
+          <h2 class="reveal">Make it <span class="gradient-text">glow</span></h2>
+        </div>
+        <p class="cta reveal">Pick a theme, write HTML or JSON — <span class="gradient-text">ship a universe</span>.</p>
+      </div>
+      <div class="eq-credit">© 2026 Effects Platform</div>
+    </section>
+
+  </main>
+
+  <script type="module">
+    import { mountDeck } from "../../platform/engine/engine.js";
+    import Theme from "../../platform/themes/aurora/aurora.js";
+    mountDeck(Theme);
+  </script>
+</body>
+</html>
