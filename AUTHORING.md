@@ -279,6 +279,15 @@ vendored in `assets/vendor/`.
 
 Deploy: push the deck branch and enable **GitHub Pages → Deploy from branch (root)**.
 
+Or export the deck out of the repo entirely:
+
+```bash
+node platform/export/export-single.mjs decks/<name>/deck.json talk.html   # one file, runs anywhere
+node platform/export/export-bundle.mjs decks/<name>/deck.json talk.zip   # folder for any static host
+```
+
+Studio has the same exports as buttons, plus a one-click GitHub Pages deploy.
+
 ---
 
 ## 9. Where things live

@@ -74,6 +74,26 @@ each theme art-directs the scenes. Try it with
 [`docs/samples/atlas-review.pptx`](docs/samples/atlas-review.pptx) — the
 result is committed at [`decks/pptx-demo/`](decks/pptx-demo/).
 
+## Ship it
+
+Three ways out of the platform (all in Studio, all also headless):
+
+- **Single-file HTML** (~2 MB) — everything inlined: CSS, GSAP, the engine,
+  the theme, and Three.js riding in a `data:` URI import map. Double-click it,
+  email it, drop it on any host; works offline and even from `file://`.
+  ```bash
+  node platform/export/export-single.mjs decks/talk/deck.json talk.html
+  ```
+- **Bundle (.zip)** — unzips to a folder (`index.html` + engine + vendor) that
+  runs on any static host.
+  ```bash
+  node platform/export/export-bundle.mjs decks/talk/deck.json talk.zip
+  ```
+- **Deploy to GitHub Pages** (beta) — Studio creates the repo, uploads the
+  bundle via the GitHub API, and enables Pages, entirely from your browser
+  with a fine-grained personal access token (needs repo *administration*,
+  *contents*, and *pages* permissions; the token is never stored).
+
 Swap the theme by changing one line (`"theme": "aurora"` in IR, or the theme
 import in HTML). Dots, counter, and navigation update automatically.
 
@@ -110,6 +130,11 @@ platform/
     zip.js  xml.js            # zero-dep ZIP reader + mini XML parser
     pptx.js  map.js           # PPTX extractor + semantic mapper -> Deck IR
     ingest-pptx.mjs           # CLI: node ingest-pptx.mjs <in.pptx> <deck.json> [theme]
+  export/
+    singlefile.js             # deck -> ONE self-contained .html
+    zip-write.js  bundle.js   # zero-dep zip writer + decomposed bundle
+    github.js                 # one-click GitHub Pages deploy (browser)
+    export-single.mjs  export-bundle.mjs   # CLI twins
 studio/                       # the browser app: drop a .pptx, preview, download
 assets/vendor/                # three.js r160 + gsap 3.12 (local, offline-friendly)
 docs/preview/                 # screenshots · docs/samples/ — sample .pptx
@@ -121,7 +146,7 @@ docs/preview/                 # screenshots · docs/samples/ — sample .pptx
 - [x] **Phase 1a** — Aurora theme (proves the plug-in model)
 - [x] **Phase 1b** — Neon Lasers, Kinetic Tiles, Liquid Ink themes
 - [x] **Phase 2** — PowerPoint ingestion (client-side PPTX → Deck IR) + Studio UI
-- [ ] **Phase 3** — exporters: single-file HTML, bundle zip, one-click GitHub Pages
+- [x] **Phase 3** — exporters: single-file HTML, bundle zip, one-click GitHub Pages
 - [ ] **Phase 4** — AI art direction, kinetic typography, presenter mode
 
 ## Tech

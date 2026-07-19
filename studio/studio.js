@@ -10,6 +10,16 @@
 import { extractPptx } from "../platform/ingest/pptx.js";
 import { mapToDeckIR } from "../platform/ingest/map.js";
 import { composeDeck } from "../platform/compose/composer.js";
+import { composeSingleFile } from "../platform/export/singlefile.js";
+import { composeBundle } from "../platform/export/bundle.js";
+import { deployToGitHubPages } from "../platform/export/github.js";
+
+/* repo-root-relative reader for the exporters (Studio is served at /studio/) */
+async function readFile(path) {
+  const res = await fetch(`../${path}`);
+  if (!res.ok) throw new Error(`missing ${path} (${res.status})`);
+  return res.text();
+}
 
 const THEMES = [
   ["cosmos", "Cosmos"], ["aurora", "Aurora"], ["lasers", "Lasers"],
@@ -110,14 +120,56 @@ $("apply").addEventListener("click", () => {
 });
 
 /* ---------- downloads ---------- */
-function download(name, text, type) {
+function download(name, payload, type) {
   const a = document.createElement("a");
-  a.href = URL.createObjectURL(new Blob([text], { type }));
+  a.href = URL.createObjectURL(new Blob([payload], { type }));
   a.download = name;
   a.click();
   URL.revokeObjectURL(a.href);
 }
+const slug = () => (deck.meta.title || "deck").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "deck";
+
 $("dl-json").addEventListener("click", () =>
   download("deck.json", JSON.stringify(deck, null, 2), "application/json"));
 $("dl-html").addEventListener("click", () =>
   download("index.html", composeDeck(deck, { base: "../.." }), "text/html"));
+
+$("dl-single").addEventListener("click", async () => {
+  try {
+    status("Building single-file HTML…");
+    const html = await composeSingleFile(deck, { readFile });
+    download(`${slug()}.html`, html, "text/html");
+    status(`Single file ready — ${(html.length / 1024 / 1024).toFixed(1)} MB, works from anywhere (even file://).`);
+  } catch (e) { status(`Export failed: ${e.message}`, true); }
+});
+
+$("dl-zip").addEventListener("click", async () => {
+  try {
+    status("Building bundle…");
+    const zip = await composeBundle(deck, { readFile });
+    download(`${slug()}.zip`, zip, "application/zip");
+    status(`Bundle ready — ${(zip.length / 1024 / 1024).toFixed(1)} MB. Unzip and serve the folder.`);
+  } catch (e) { status(`Export failed: ${e.message}`, true); }
+});
+
+/* ---------- GitHub Pages deploy ---------- */
+$("gh-deploy").addEventListener("click", async () => {
+  const token = $("gh-token").value.trim();
+  const repo = $("gh-repo").value.trim() || slug();
+  if (!deck) return status("Load a deck first.", true);
+  if (!token) return status("Paste a GitHub token first.", true);
+  $("gh-deploy").disabled = true;
+  try {
+    const url = await deployToGitHubPages({
+      token, repo, deck, readFile,
+      onProgress: (msg) => status(msg),
+    });
+    const a = $("gh-link");
+    a.href = url;
+    a.textContent = url;
+  } catch (e) {
+    status(`Deploy failed: ${e.message}`, true);
+  } finally {
+    $("gh-deploy").disabled = false;
+  }
+});

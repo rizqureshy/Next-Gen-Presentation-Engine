@@ -156,6 +156,44 @@ export function renderSlides(deck) {
   return deck.slides.map((s, i) => renderSlide(s, i, deck)).join("\n\n");
 }
 
+/* engine chrome — loader, background layers, progress, brand bar, nav.
+   Shared by composeDeck and the exporters so the markup never drifts. */
+export function renderChrome(deck) {
+  const m = deck.meta;
+  return `  <div id="loader">
+    <div class="orb"></div>
+    <div class="lbl">${esc(m.loaderText || "Spinning up the universe…")}</div>
+  </div>
+
+  <canvas id="bg-canvas"></canvas>
+  <div class="wash"></div>
+  <div class="vignette"></div>
+
+  <div class="progress"><div class="bar" id="bar"></div></div>
+  <header class="chrome brandbar">
+    <div class="logo"><span class="spark"></span> ${esc(m.brand || m.title || "Deck")}</div>
+    <div class="count"><b id="c-now">01</b> / <span id="c-tot">${String(deck.slides.length).padStart(2, "0")}</span></div>
+  </header>
+
+  <button class="nav-btn prev" id="prev" aria-label="Previous slide">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <button class="nav-btn next" id="next" aria-label="Next slide">
+    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+
+  <nav class="chrome dots" id="dots" aria-label="Slide navigation"></nav>`;
+}
+
+/* shared <head> boilerplate: favicon + async font loading */
+export const FAVICON = `<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232b88ff'/%3E%3Cstop offset='1' stop-color='%239b4dff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='24' height='24' rx='6' fill='url(%23g)'/%3E%3C/svg%3E" />`;
+export const FONT_LINKS = `<link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" /></noscript>`;
+
 export function composeDeck(deck, opts = {}) {
   const base = opts.base ?? "..";
   const theme = deck.meta.theme || "cosmos";
@@ -168,15 +206,10 @@ export function composeDeck(deck, opts = {}) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover" />
   <title>${esc(m.title || "Untitled deck")}</title>
   <meta name="description" content="${esc(m.description || "")}" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232b88ff'/%3E%3Cstop offset='1' stop-color='%239b4dff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='24' height='24' rx='6' fill='url(%23g)'/%3E%3C/svg%3E" />
+  ${FAVICON}
 
   <!-- Fonts loaded async so a slow/blocked CDN never render-blocks the deck -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style"
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
-        onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" /></noscript>
+  ${FONT_LINKS}
 
   <link rel="stylesheet" href="${base}/platform/engine/deck.css" />
   <link rel="stylesheet" href="${base}/platform/themes/${theme}/${theme}.css" />
@@ -194,29 +227,7 @@ export function composeDeck(deck, opts = {}) {
 </head>
 <body>
 
-  <div id="loader">
-    <div class="orb"></div>
-    <div class="lbl">${esc(m.loaderText || "Spinning up the universe…")}</div>
-  </div>
-
-  <canvas id="bg-canvas"></canvas>
-  <div class="wash"></div>
-  <div class="vignette"></div>
-
-  <div class="progress"><div class="bar" id="bar"></div></div>
-  <header class="chrome brandbar">
-    <div class="logo"><span class="spark"></span> ${esc(m.brand || m.title || "Deck")}</div>
-    <div class="count"><b id="c-now">01</b> / <span id="c-tot">0${deck.slides.length}</span></div>
-  </header>
-
-  <button class="nav-btn prev" id="prev" aria-label="Previous slide">
-    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-  </button>
-  <button class="nav-btn next" id="next" aria-label="Next slide">
-    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-  </button>
-
-  <nav class="chrome dots" id="dots" aria-label="Slide navigation"></nav>
+${renderChrome(deck)}
 
   <main id="stage">
 

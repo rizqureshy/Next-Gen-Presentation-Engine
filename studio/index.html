@@ -43,11 +43,25 @@
           <button id="apply" class="ghost">Apply IR edits</button>
         </div>
         <div class="group">
-          <button id="dl-json" class="primary">Download deck.json</button>
-          <button id="dl-html" class="primary">Download index.html</button>
-          <p class="dim small">Save both into <code>decks/&lt;your-deck&gt;/</code> in the
-          platform repo and serve the repo root — or push the branch and turn on
-          GitHub Pages.</p>
+          <div class="label">Export</div>
+          <button id="dl-single" class="primary">Single-file HTML</button>
+          <p class="dim small">One self-contained file — double-click it, email
+          it, drop it on any host. ~2 MB.</p>
+          <button id="dl-zip" class="primary">Bundle (.zip)</button>
+          <p class="dim small">Unzips to a folder that runs on any static host.</p>
+          <button id="dl-json" class="ghost">deck.json</button>
+          <button id="dl-html" class="ghost">index.html (for decks/ in the repo)</button>
+        </div>
+
+        <div class="group">
+          <div class="label">Deploy to GitHub Pages <span class="dim">(beta)</span></div>
+          <input id="gh-token" class="text" type="password" placeholder="fine-grained personal access token" autocomplete="off" />
+          <input id="gh-repo" class="text" type="text" placeholder="repo name, e.g. my-deck" spellcheck="false" />
+          <button id="gh-deploy" class="primary">Create repo &amp; publish</button>
+          <p class="dim small">Runs entirely in your browser against
+          <code>api.github.com</code>; the token is never stored or sent anywhere
+          else. Needs repo <b>administration</b>, <b>contents</b>, and
+          <b>pages</b> permissions. <a id="gh-link" class="dim" target="_blank" rel="noopener"></a></p>
         </div>
       </div>
 
