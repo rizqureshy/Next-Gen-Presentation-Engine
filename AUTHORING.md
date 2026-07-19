@@ -228,7 +228,7 @@ Icons are inline `<svg viewBox="0 0 24 24"><path d="…"/></svg>` with `fill:#ff
 ## 6. Authoring in JSON (Deck IR)
 
 Instead of HTML you can describe the deck as JSON and let the composer build
-the page — this is the same path PowerPoint ingestion will use:
+the page:
 
 ```bash
 node platform/compose/build-deck.mjs my-deck.json decks/my-deck/index.html
@@ -237,6 +237,22 @@ node platform/compose/build-deck.mjs my-deck.json decks/my-deck/index.html
 Full schema + block reference: **[platform/compose/schema.md](platform/compose/schema.md)**.
 The Aurora demo (`decks/aurora-demo/`) is generated from
 `platform/compose/example-deck.json` — use it as a starting point.
+
+## 6b. Importing a PowerPoint
+
+Serve the repo and open **`/studio/`**: drop a `.pptx`, pick a theme, tweak
+the generated Deck IR if you like, and download `deck.json` + `index.html`
+into `decks/<name>/`. Everything runs client-side. The same pipeline works
+headless:
+
+```bash
+node platform/ingest/ingest-pptx.mjs talk.pptx decks/talk/deck.json tiles
+node platform/compose/build-deck.mjs decks/talk/deck.json decks/talk/index.html
+```
+
+The mapper re-expresses content in the platform's design system (bullets →
+cards or moves, prose → ledes, images → framed media, closings → finales) and
+leaves scenes unset so the chosen theme art-directs each slide.
 
 ---
 

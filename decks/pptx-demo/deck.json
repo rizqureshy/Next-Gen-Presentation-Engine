@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "title": "Atlas Program Review",
+    "brand": "Atlas Program Review",
+    "credit": "",
+    "theme": "aurora",
+    "description": "Imported from PowerPoint — 6 slides."
+  },
+  "slides": [
+    {
+      "role": "cover",
+      "blocks": [
+        {
+          "type": "kicker",
+          "text": "Atlas Program Review"
+        },
+        {
+          "type": "heading",
+          "text": "Atlas {Program} Review"
+        },
+        {
+          "type": "lede",
+          "text": "Q2 2026 · Platform Team"
+        }
+      ]
+    },
+    {
+      "role": "content",
+      "blocks": [
+        {
+          "type": "kicker",
+          "text": "Slide 02"
+        },
+        {
+          "type": "heading",
+          "text": "Three wins this {quarter}"
+        },
+        {
+          "type": "cards",
+          "columns": 3,
+          "items": [
+            {
+              "icon": "bolt",
+              "title": "Latency",
+              "text": "p95 down 38% after the cache rework"
+            },
+            {
+              "icon": "layers",
+              "title": "Adoption",
+              "text": "214 teams onboarded, up from 90"
+            },
+            {
+              "icon": "check",
+              "title": "Reliability",
+              "text": "zero Sev-1 incidents in 11 weeks"
+            }
+          ]
+        }
+      ],
+      "notes": "Lead with the latency story — it unblocked the mobile team."
+    },
+    {
+      "role": "content",
+      "blocks": [
+        {
+          "type": "kicker",
+          "text": "Slide 03"
+        },
+        {
+          "type": "heading",
+          "text": "What we ship next"
+        },
+        {
+          "type": "moves",
+          "items": [
+            {
+              "lead": "Streaming ingest.",
+              "text": "real-time events land in under a second"
+            },
+            {
+              "lead": "Self-serve onboarding.",
+              "text": "teams integrate without a ticket"
+            },
+            {
+              "lead": "Regional failover.",
+              "text": "automatic, tested monthly — Chaos drills included"
+            },
+            {
+              "lead": "Cost dashboards.",
+              "text": "spend visible per team"
+            },
+            {
+              "lead": "SDK v3.",
+              "text": "typed clients for four languages"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "role": "content",
+      "blocks": [
+        {
+          "type": "kicker",
+          "text": "Slide 04"
+        },
+        {
+          "type": "heading",
+          "text": "{Where} Atlas goes in H2"
+        },
+        {
+          "type": "lede",
+          "text": "Atlas becomes the default path to production for every new service."
+        },
+        {
+          "type": "note",
+          "text": "We fold the legacy deploy tooling into Atlas, retire two bespoke pipelines, and make the golden path the only path."
+        }
+      ]
+    },
+    {
+      "role": "content",
+      "blocks": [
+        {
+          "type": "kicker",
+          "text": "Slide 05"
+        },
+        {
+          "type": "heading",
+          "text": "{Adoption} keeps climbing"
+        },
+        {
+          "type": "image",
+          "src": "data:image/png;base64,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DGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADGMAABjCA2wb4AV34mtw6Luz8AAAAAElFTkSuQmCC"
+        }
+      ],
+      "layout": "center"
+    },
+    {
+      "role": "closing",
+      "blocks": [
+        {
+          "type": "kicker",
+          "text": "Wrap-up"
+        },
+        {
+          "type": "heading",
+          "text": "{Thank} you"
+        },
+        {
+          "type": "lede",
+          "text": "Questions? Find us in #atlas-platform"
+        }
+      ]
+    }
+  ]
+}

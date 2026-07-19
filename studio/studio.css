@@ -1,0 +1,129 @@
+/* ============================================================
+   studio.css — the Studio app (standalone; not deck.css)
+   ============================================================ */
+
+:root {
+  --bg: #05030f;
+  --panel: rgba(255, 255, 255, 0.05);
+  --brd: rgba(255, 255, 255, 0.14);
+  --ink: #f0f3ff;
+  --dim: #9aa2cf;
+  --blue: #2b88ff;
+  --indigo: #6b5bff;
+  --teal: #18c8b6;
+  --font: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  background: radial-gradient(120% 100% at 20% 0%, #0b0723, var(--bg) 60%);
+  color: var(--ink);
+  font-family: var(--font);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+
+.bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--brd);
+}
+.logo { display: flex; align-items: center; gap: 10px; font-size: 16px; }
+.logo b { color: var(--dim); font-weight: 600; }
+.logo .spark {
+  width: 22px; height: 22px; border-radius: 7px;
+  background: linear-gradient(135deg, var(--blue), var(--indigo) 60%, #9b4dff);
+  box-shadow: 0 0 18px -4px var(--indigo);
+}
+.hint { font-size: 12px; color: var(--dim); letter-spacing: 0.04em; }
+
+.layout { flex: 1; display: flex; min-height: 0; }
+
+.side {
+  width: 320px; flex: none;
+  padding: 18px;
+  overflow-y: auto;
+  border-right: 1px solid var(--brd);
+  display: flex; flex-direction: column; gap: 14px;
+}
+
+.drop {
+  display: block; text-align: center; cursor: pointer;
+  padding: 26px 14px; border-radius: 16px;
+  border: 1.5px dashed var(--brd);
+  background: var(--panel);
+  color: var(--dim); font-size: 13px; line-height: 1.5;
+  transition: border-color .2s, background .2s;
+}
+.drop b { color: var(--ink); }
+.drop:hover, .drop.over { border-color: var(--blue); background: rgba(43, 136, 255, 0.08); }
+.drop-icon { font-size: 22px; margin-bottom: 6px; color: var(--teal); }
+
+.controls { display: flex; flex-direction: column; gap: 16px; }
+.group { display: flex; flex-direction: column; gap: 7px; }
+.label { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
+.dim { color: var(--dim); text-transform: none; letter-spacing: 0; }
+.small { font-size: 11.5px; line-height: 1.5; }
+code { color: var(--teal); }
+
+.chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.chip {
+  padding: 7px 13px; border-radius: 100px; cursor: pointer;
+  border: 1px solid var(--brd); background: var(--panel);
+  color: var(--ink); font-size: 12.5px;
+  transition: all .2s;
+}
+.chip:hover { border-color: var(--blue); }
+.chip.on {
+  background: linear-gradient(135deg, var(--blue), var(--indigo));
+  border-color: transparent; font-weight: 600;
+  box-shadow: 0 0 16px -4px var(--indigo);
+}
+
+.text, .ir {
+  width: 100%; border-radius: 10px; border: 1px solid var(--brd);
+  background: rgba(0, 0, 0, 0.3); color: var(--ink);
+  padding: 9px 11px; font-size: 13px; outline: none;
+}
+.text:focus, .ir:focus { border-color: var(--blue); }
+.ir { height: 180px; resize: vertical; font-family: ui-monospace, monospace; font-size: 11px; }
+
+button {
+  border: 1px solid var(--brd); border-radius: 10px; cursor: pointer;
+  padding: 10px 14px; font-size: 13px; color: var(--ink);
+  background: var(--panel);
+  transition: all .2s;
+}
+button:hover { border-color: var(--blue); }
+.primary {
+  background: linear-gradient(135deg, var(--blue), var(--indigo));
+  border: none; font-weight: 600;
+}
+.primary:hover { filter: brightness(1.15); }
+.ghost { background: transparent; color: var(--dim); }
+
+.status { font-size: 12px; color: var(--teal); min-height: 18px; line-height: 1.5; }
+.status.err { color: #ff7b9d; }
+
+.stage { flex: 1; position: relative; background: #030209; }
+.stage iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+.empty {
+  position: absolute; inset: 0;
+  display: grid; place-items: center; place-content: center; gap: 18px;
+  color: var(--dim); text-align: center; font-size: 14px; line-height: 1.6;
+}
+.empty .orb {
+  width: 54px; height: 54px; border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--blue), var(--indigo), #9b4dff, var(--blue));
+  filter: blur(2px); opacity: 0.8;
+  animation: spin 3s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 760px) {
+  .layout { flex-direction: column; }
+  .side { width: 100%; border-right: 0; border-bottom: 1px solid var(--brd); }
+  .hint { display: none; }
+}

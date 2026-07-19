@@ -57,6 +57,23 @@ Omit `data-scene` and the theme art-directs the slide from its content
 node platform/compose/build-deck.mjs my-deck.json decks/my-deck/index.html
 ```
 
+**Or upload a PowerPoint.** Open **[`studio/`](studio/)** in a served repo
+(e.g. `http://localhost:8000/studio/`), drop a `.pptx`, pick a theme, and
+download the result — parsing, art direction, and composition all run in the
+browser; the file never leaves your machine. The same pipeline runs headless:
+
+```bash
+node platform/ingest/ingest-pptx.mjs talk.pptx decks/talk/deck.json aurora
+node platform/compose/build-deck.mjs decks/talk/deck.json decks/talk/index.html
+```
+
+Ingestion re-expresses content rather than replicating layout: 2–4 short
+bullets become glass cards, 5–8 become numbered moves, prose becomes ledes,
+embedded images become framed media, "thank you" slides become finales, and
+each theme art-directs the scenes. Try it with
+[`docs/samples/atlas-review.pptx`](docs/samples/atlas-review.pptx) — the
+result is committed at [`decks/pptx-demo/`](decks/pptx-demo/).
+
 Swap the theme by changing one line (`"theme": "aurora"` in IR, or the theme
 import in HTML). Dots, counter, and navigation update automatically.
 
@@ -89,8 +106,13 @@ platform/
     composer.js               # Deck IR -> deck HTML (Node + browser)
     build-deck.mjs            # CLI: node build-deck.mjs <ir.json> <out.html>
     example-deck.json         # the Aurora demo's source IR
+  ingest/
+    zip.js  xml.js            # zero-dep ZIP reader + mini XML parser
+    pptx.js  map.js           # PPTX extractor + semantic mapper -> Deck IR
+    ingest-pptx.mjs           # CLI: node ingest-pptx.mjs <in.pptx> <deck.json> [theme]
+studio/                       # the browser app: drop a .pptx, preview, download
 assets/vendor/                # three.js r160 + gsap 3.12 (local, offline-friendly)
-docs/preview/                 # screenshots
+docs/preview/                 # screenshots · docs/samples/ — sample .pptx
 ```
 
 ## Roadmap
@@ -98,7 +120,7 @@ docs/preview/                 # screenshots
 - [x] **Phase 0** — engine/theme split, Theme contract, Deck IR + composer
 - [x] **Phase 1a** — Aurora theme (proves the plug-in model)
 - [x] **Phase 1b** — Neon Lasers, Kinetic Tiles, Liquid Ink themes
-- [ ] **Phase 2** — PowerPoint ingestion (client-side PPTX → Deck IR) + Studio UI
+- [x] **Phase 2** — PowerPoint ingestion (client-side PPTX → Deck IR) + Studio UI
 - [ ] **Phase 3** — exporters: single-file HTML, bundle zip, one-click GitHub Pages
 - [ ] **Phase 4** — AI art direction, kinetic typography, presenter mode
 
