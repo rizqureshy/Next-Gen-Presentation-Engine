@@ -1,0 +1,8 @@
+/* ============================================================
+   ink.css — Liquid Ink theme accents, layered over deck.css
+   ============================================================ */
+
+html, body { background: #030309; }
+
+/* still water: keep the ambient wash faint */
+.cosmos-wash, .wash { opacity: 0.3; }

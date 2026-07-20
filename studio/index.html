@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Studio — Effects Platform</title>
+  <meta name="description" content="Upload a PowerPoint, pick a theme, ship a universe. Everything runs in your browser — files never leave your machine." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232b88ff'/%3E%3Cstop offset='1' stop-color='%239b4dff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='24' height='24' rx='6' fill='url(%23g)'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="studio.css" />
+</head>
+<body>
+
+  <header class="bar">
+    <div class="logo"><span class="spark"></span> Effects Platform <b>Studio</b></div>
+    <div class="hint">everything runs in your browser — files never leave your machine</div>
+  </header>
+
+  <main class="layout">
+    <aside class="side">
+      <label id="drop" class="drop">
+        <input id="file" type="file" accept=".pptx" hidden />
+        <div class="drop-icon">⬆</div>
+        <div><b>Drop a .pptx here</b><br/>or click to choose</div>
+      </label>
+      <button id="sample" class="ghost">…or load the sample deck</button>
+
+      <div id="controls" class="controls" hidden>
+        <div class="group">
+          <div class="label">Theme</div>
+          <div id="themes" class="chips"></div>
+        </div>
+        <div class="group">
+          <div class="label">Brand label</div>
+          <input id="brand" class="text" type="text" spellcheck="false" />
+        </div>
+        <div class="group">
+          <div class="label">Footer credit</div>
+          <input id="credit" class="text" type="text" spellcheck="false" placeholder="© 2026 Your Org" />
+        </div>
+        <div class="group">
+          <div class="label">Deck IR <span class="dim">(editable JSON)</span></div>
+          <textarea id="ir" class="ir" spellcheck="false"></textarea>
+          <button id="apply" class="ghost">Apply IR edits</button>
+        </div>
+        <div class="group">
+          <div class="label">Export</div>
+          <button id="dl-single" class="primary">Single-file HTML</button>
+          <p class="dim small">One self-contained file — double-click it, email
+          it, drop it on any host. ~2 MB.</p>
+          <button id="dl-zip" class="primary">Bundle (.zip)</button>
+          <p class="dim small">Unzips to a folder that runs on any static host.</p>
+          <button id="dl-json" class="ghost">deck.json</button>
+          <button id="dl-html" class="ghost">index.html (for decks/ in the repo)</button>
+        </div>
+
+        <div class="group">
+          <div class="label">Deploy to GitHub Pages <span class="dim">(beta)</span></div>
+          <input id="gh-token" class="text" type="password" placeholder="fine-grained personal access token" autocomplete="off" />
+          <input id="gh-repo" class="text" type="text" placeholder="repo name, e.g. my-deck" spellcheck="false" />
+          <button id="gh-deploy" class="primary">Create repo &amp; publish</button>
+          <p class="dim small">Runs entirely in your browser against
+          <code>api.github.com</code>; the token is never stored or sent anywhere
+          else. Needs repo <b>administration</b>, <b>contents</b>, and
+          <b>pages</b> permissions. <a id="gh-link" class="dim" target="_blank" rel="noopener"></a></p>
+        </div>
+      </div>
+
+      <div id="status" class="status"></div>
+    </aside>
+
+    <section class="stage">
+      <div id="empty" class="empty">
+        <div class="orb"></div>
+        <p>Your presentation appears here.<br/>Arrow keys work inside the preview.</p>
+      </div>
+      <iframe id="preview" title="Deck preview" hidden></iframe>
+    </section>
+  </main>
+
+  <script type="module" src="studio.js"></script>
+</body>
+</html>

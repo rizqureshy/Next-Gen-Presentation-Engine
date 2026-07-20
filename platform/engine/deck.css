@@ -1,6 +1,7 @@
 /* ============================================================
-   AI Activation — Channel Partner Sales
-   "Fun Universe" theme · Microsoft Fluent fun colors
+   deck.css — the platform's shared design system
+   Glass components + chrome + cosmic type treatment.
+   Themes may layer a small override file on top of this.
    ============================================================ */
 
 :root {
@@ -53,7 +54,7 @@ html, body {
   display: block;
 }
 
-.cosmos-wash {
+.cosmos-wash, .wash {
   position: fixed;
   inset: 0;
   z-index: 1;
@@ -131,7 +132,7 @@ h1, h2, .quote blockquote {
     0 3px 16px rgba(2, 1, 10, 0.8),
     0 4px 34px rgba(2, 1, 10, 0.6);
 }
-.cover .sub, .recap .lede, .august .sub, .quote .attrib, .recap .canvas-note {
+.cover .sub, .quote .attrib {
   color: var(--ink);
   text-shadow:
     0 0 2px rgba(2, 1, 10, 0.9),
@@ -369,6 +370,24 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 1.
   margin-bottom: 14px;
 }
 
+/* big quote */
+.quote blockquote {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(24px, 3.6vw, 46px); line-height: 1.25;
+  max-width: 900px; margin-inline: auto;
+}
+.quote .attrib { margin-top: 20px; color: var(--ink-dim); font-size: clamp(13px, 1.3vw, 16px); }
+
+/* framed media (images from ingested decks) */
+.media {
+  border-radius: 20px; overflow: hidden;
+  border: 1px solid var(--glass-brd);
+  box-shadow: var(--shadow);
+  margin-inline: auto;
+  max-width: min(880px, 100%);
+}
+.media img { display: block; width: 100%; height: auto; }
+
 /* status pill (research flag) */
 .status {
   display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;
@@ -501,11 +520,9 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 1.
    Responsive
    ============================================================ */
 @media (max-width: 920px) {
-  .weeks { grid-template-columns: repeat(2, 1fr); }
   .nav-btn { width: 46px; height: 46px; }
 }
 @media (max-width: 560px) {
-  .weeks { grid-template-columns: 1fr; }
   .nav-btn.prev { left: 8px; } .nav-btn.next { right: 8px; }
   .eq-credit { font-size: 10px; }
 }

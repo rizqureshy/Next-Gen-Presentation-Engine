@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover" />
+  <title>Liquid Ink — Effects Platform · Theme 05</title>
+  <meta name="description" content="Luminous ink drops that bloom, bleed, and dissolve in dark water between slides." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232b88ff'/%3E%3Cstop offset='1' stop-color='%239b4dff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='24' height='24' rx='6' fill='url(%23g)'/%3E%3C/svg%3E" />
+
+  <!-- Fonts loaded async so a slow/blocked CDN never render-blocks the deck -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" /></noscript>
+
+  <link rel="stylesheet" href="../../platform/engine/deck.css" />
+  <link rel="stylesheet" href="../../platform/themes/ink/ink.css" />
+
+  <!-- engine deps, vendored locally (offline-friendly) -->
+  <script src="../../assets/vendor/gsap.min.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "../../assets/vendor/three/three.module.js",
+      "three/addons/": "../../assets/vendor/three/addons/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <div id="loader">
+    <div class="orb"></div>
+    <div class="lbl">Stirring the water…</div>
+  </div>
+
+  <canvas id="bg-canvas"></canvas>
+  <div class="wash"></div>
+  <div class="vignette"></div>
+
+  <div class="progress"><div class="bar" id="bar"></div></div>
+  <header class="chrome brandbar">
+    <div class="logo"><span class="spark"></span> Effects Platform</div>
+    <div class="count"><b id="c-now">01</b> / <span id="c-tot">05</span></div>
+  </header>
+
+  <button class="nav-btn prev" id="prev" aria-label="Previous slide">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <button class="nav-btn next" id="next" aria-label="Next slide">
+    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+
+  <nav class="chrome dots" id="dots" aria-label="Slide navigation"></nav>
+
+  <main id="stage">
+
+    <section class="slide cover center" data-slide="0" data-scene="drop">
+      <div class="slide-inner">
+        <span class="kicker reveal"><span class="dot"></span> Effects Platform · Theme 05</span>
+          <h1 class="reveal">Ideas that <span class="gradient-text">bleed</span> into the dark</h1>
+          <p class="sub reveal">Luminous ink blooms in still water — feathered tendrils, bright rims, and a slow settle.</p>
+        <div class="presenter reveal"><span class="dot2"></span> <span><b>Liquid Ink</b> · Theme demo</span></div>
+        <div class="scroll-hint reveal"><span class="mouse"></span> scroll or use arrows</div>
+      </div>
+      <div class="eq-credit">© 2026 Effects Platform</div>
+    </section>
+
+    <section class="slide content" data-slide="1" data-scene="bloom:3">
+      <div class="slide-inner">
+        <div class="lead">
+          <span class="kicker reveal"><span class="dot"></span> How it works</span>
+          <h2 class="reveal">Every drop is <span class="gradient-text">alive</span></h2>
+          <p class="lede reveal">Noise-warped blots with tendrils, granulation, and watercolor rims — grown from a birth time, not a video.</p>
+        </div>
+        <div class="cards c3">
+          <article class="card pop" style="--ic:linear-gradient(135deg,#2b88ff,#4a3fd0);--ac:#2b88ff;"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg></div><h3>Drops</h3><p>A pool of twelve slots; scenes arrange them like pigment on wet paper.</p></article>
+          <article class="card pop" style="--ic:linear-gradient(135deg,#9b4dff,#6b5bff);--ac:#9b4dff;"><div class="ic"><svg viewBox="0 0 24 24"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg></div><h3>Tendrils</h3><p>Shared warp fields feather every edge — organic, never twice the same.</p></article>
+          <article class="card pop" style="--ic:linear-gradient(135deg,#18c8b6,#2b88ff);--ac:#18c8b6;"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 5h-2v6l4.5 2.7 1-1.7-3.5-2V7z"/></svg></div><h3>Settle</h3><p>Drops bloom bright, then calm into the water until the next slide stirs it.</p></article>
+        </div>
+      </div>
+      <div class="eq-credit">© 2026 Effects Platform</div>
+    </section>
+
+    <section class="slide content center" data-slide="2" data-scene="collide">
+      <div class="slide-inner">
+        <div class="lead">
+          <span class="kicker reveal"><span class="dot"></span> Duality</span>
+          <h2 class="reveal">Two colors, <span class="gradient-text">one current</span></h2>
+        </div>
+        <div class="quote"><blockquote class="reveal">Blue from the left, pink from the right — the collide scene stages every either/or you'll ever present.</blockquote><p class="attrib reveal">— the art director in the theme</p></div>
+      </div>
+      <div class="eq-credit">© 2026 Effects Platform</div>
+    </section>
+
+    <section class="slide content" data-slide="3" data-scene="torrent">
+      <div class="slide-inner">
+        <div class="lead">
+          <span class="kicker reveal"><span class="dot"></span> Pipeline</span>
+          <h2 class="reveal">A <span class="gradient-text">torrent</span> of small drops</h2>
+          <p class="lede reveal">Streams read left to right — the scene for processes, journeys, and pipelines.</p>
+        </div>
+        <div class="flow reveal"><span class="stage">Upload</span><span class="arrow">›</span><span class="stage">Ingest</span><span class="arrow">›</span><span class="stage">Art-direct</span><span class="arrow">›</span><span class="stage">Publish</span></div>
+        <p class="note reveal">This is the path your <b>PowerPoint</b> will take through the platform.</p>
+      </div>
+      <div class="eq-credit">© 2026 Effects Platform</div>
+    </section>
+
+    <section class="slide content center" data-slide="4" data-scene="eruption">
+      <div class="slide-inner">
+        <div class="lead">
+          <span class="kicker reveal"><span class="dot"></span> Wrap-up</span>
+          <h2 class="reveal">Let it <span class="gradient-text">erupt</span></h2>
+        </div>
+        <p class="cta reveal">Nine colors at once — <span class="gradient-text">stir the water</span>.</p>
+      </div>
+      <div class="eq-credit">© 2026 Effects Platform</div>
+    </section>
+
+  </main>
+
+  <script type="module">
+    import { mountDeck } from "../../platform/engine/engine.js";
+    import Theme from "../../platform/themes/ink/ink.js";
+    mountDeck(Theme);
+  </script>
+</body>
+</html>

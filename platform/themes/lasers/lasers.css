@@ -1,0 +1,8 @@
+/* ============================================================
+   lasers.css — Neon Lasers theme accents, layered over deck.css
+   ============================================================ */
+
+html, body { background: #030109; }
+
+/* neon stage: cooler, dimmer ambient wash */
+.cosmos-wash, .wash { opacity: 0.3; }

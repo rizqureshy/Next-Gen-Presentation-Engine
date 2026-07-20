@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "title": "Kinetic Tiles — Effects Platform · Theme 04",
+    "description": "A wall of 1,200 living 3D tiles that ripples, flips, and re-paints itself between slides.",
+    "brand": "Effects Platform",
+    "credit": "© 2026 Effects Platform",
+    "theme": "tiles",
+    "loaderText": "Laying the tiles…"
+  },
+  "slides": [
+    {
+      "role": "cover",
+      "scene": "wall",
+      "blocks": [
+        { "type": "kicker", "text": "Effects Platform · Theme 04" },
+        { "type": "heading", "text": "A wall that {listens}" },
+        { "type": "lede", "text": "Twelve hundred 3D tiles breathe behind your words — and flip in a ripple every time you move." },
+        { "type": "presenter", "name": "Kinetic Tiles", "role": "Theme demo" }
+      ]
+    },
+    {
+      "role": "content",
+      "scene": "columns:3",
+      "blocks": [
+        { "type": "kicker", "text": "How it works" },
+        { "type": "heading", "text": "One draw call, {twelve hundred} tiles" },
+        { "type": "lede", "text": "An instanced mesh of rounded boxes with real lights — cheap to run, dimensional to look at." },
+        { "type": "cards", "columns": 3, "items": [
+          { "icon": "layers", "accent": "blue", "title": "Instanced", "text": "One InstancedMesh renders the whole wall — the GPU barely notices." },
+          { "icon": "bolt", "accent": "indigo", "title": "Ripple flip", "text": "A wavefront expands from center; each tile pops and flips 180° as it passes." },
+          { "icon": "eye", "accent": "teal", "title": "Palette swap", "text": "Colors change mid-flip — the next scene arrives on the tiles' backs." }
+        ]}
+      ]
+    },
+    {
+      "role": "content",
+      "scene": "spiral",
+      "layout": "center",
+      "blocks": [
+        { "type": "kicker", "text": "Scenes" },
+        { "type": "heading", "text": "Patterns with a {pulse}" },
+        { "type": "moves", "items": [
+          { "lead": "wall.", "text": "A calm breathing field with sparse lit accents — covers." },
+          { "lead": "columns:N.", "text": "N raised, lit bands for N parallel ideas." },
+          { "lead": "checker.", "text": "Alternating flip-sway — comparisons and data." },
+          { "lead": "spiral.", "text": "Rings ripple outward from the center — cycles." },
+          { "lead": "cascade.", "text": "Gold diagonals sweep the wall — finales." }
+        ]}
+      ]
+    },
+    {
+      "role": "content",
+      "scene": "wave",
+      "blocks": [
+        { "type": "kicker", "text": "Pipeline" },
+        { "type": "heading", "text": "Content rides the {wave}" },
+        { "type": "lede", "text": "Decks come from HTML or Deck IR today — and from your PowerPoint next." },
+        { "type": "flow", "stages": ["PowerPoint", "Deck IR", "Theme", "Ship"] },
+        { "type": "note", "text": "Slides without a scene are **art-directed automatically** from their content." }
+      ]
+    },
+    {
+      "role": "closing",
+      "scene": "cascade",
+      "blocks": [
+        { "type": "kicker", "text": "Wrap-up" },
+        { "type": "heading", "text": "End on a {cascade}" },
+        { "type": "cta", "text": "Five themes, one contract — {flip the wall}." }
+      ]
+    }
+  ]
+}

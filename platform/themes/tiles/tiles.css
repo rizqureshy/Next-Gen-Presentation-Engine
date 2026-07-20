@@ -1,0 +1,16 @@
+/* ============================================================
+   tiles.css — Kinetic Tiles theme accents, layered over deck.css
+   ============================================================ */
+
+html, body { background: #05040e; }
+
+.cosmos-wash, .wash { opacity: 0.5; }
+
+/* the tile wall is busier than a particle field — strengthen the
+   focal scrim slightly so text always wins */
+.slide-inner::before {
+  background: radial-gradient(ellipse 58% 60% at 50% 50%,
+    rgba(5, 4, 14, 0.74) 0%,
+    rgba(5, 4, 14, 0.42) 48%,
+    rgba(5, 4, 14, 0.0) 75%);
+}

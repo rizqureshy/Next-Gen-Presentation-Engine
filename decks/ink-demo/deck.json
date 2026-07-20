@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "title": "Liquid Ink — Effects Platform · Theme 05",
+    "description": "Luminous ink drops that bloom, bleed, and dissolve in dark water between slides.",
+    "brand": "Effects Platform",
+    "credit": "© 2026 Effects Platform",
+    "theme": "ink",
+    "loaderText": "Stirring the water…"
+  },
+  "slides": [
+    {
+      "role": "cover",
+      "scene": "drop",
+      "blocks": [
+        { "type": "kicker", "text": "Effects Platform · Theme 05" },
+        { "type": "heading", "text": "Ideas that {bleed} into the dark" },
+        { "type": "lede", "text": "Luminous ink blooms in still water — feathered tendrils, bright rims, and a slow settle." },
+        { "type": "presenter", "name": "Liquid Ink", "role": "Theme demo" }
+      ]
+    },
+    {
+      "role": "content",
+      "scene": "bloom:3",
+      "blocks": [
+        { "type": "kicker", "text": "How it works" },
+        { "type": "heading", "text": "Every drop is {alive}" },
+        { "type": "lede", "text": "Noise-warped blots with tendrils, granulation, and watercolor rims — grown from a birth time, not a video." },
+        { "type": "cards", "columns": 3, "items": [
+          { "icon": "star", "accent": "blue", "title": "Drops", "text": "A pool of twelve slots; scenes arrange them like pigment on wet paper." },
+          { "icon": "bolt", "accent": "purple", "title": "Tendrils", "text": "Shared warp fields feather every edge — organic, never twice the same." },
+          { "icon": "clock", "accent": "teal", "title": "Settle", "text": "Drops bloom bright, then calm into the water until the next slide stirs it." }
+        ]}
+      ]
+    },
+    {
+      "role": "content",
+      "scene": "collide",
+      "layout": "center",
+      "blocks": [
+        { "type": "kicker", "text": "Duality" },
+        { "type": "heading", "text": "Two colors, {one current}" },
+        { "type": "quote", "text": "Blue from the left, pink from the right — the collide scene stages every either/or you'll ever present.", "attrib": "— the art director in the theme" }
+      ]
+    },
+    {
+      "role": "content",
+      "scene": "torrent",
+      "blocks": [
+        { "type": "kicker", "text": "Pipeline" },
+        { "type": "heading", "text": "A {torrent} of small drops" },
+        { "type": "lede", "text": "Streams read left to right — the scene for processes, journeys, and pipelines." },
+        { "type": "flow", "stages": ["Upload", "Ingest", "Art-direct", "Publish"] },
+        { "type": "note", "text": "This is the path your **PowerPoint** will take through the platform." }
+      ]
+    },
+    {
+      "role": "closing",
+      "scene": "eruption",
+      "blocks": [
+        { "type": "kicker", "text": "Wrap-up" },
+        { "type": "heading", "text": "Let it {erupt}" },
+        { "type": "cta", "text": "Nine colors at once — {stir the water}." }
+      ]
+    }
+  ]
+}

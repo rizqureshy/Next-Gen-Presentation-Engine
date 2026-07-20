@@ -1,0 +1,9 @@
+{
+  "name": "effects-platform",
+  "private": true,
+  "type": "module",
+  "description": "A themeable 3D-effects presentation platform: pluggable WebGL themes, a Deck IR content schema, and zero-build deck output.",
+  "scripts": {
+    "serve": "python3 -m http.server 8000"
+  }
+}

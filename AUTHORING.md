@@ -1,12 +1,13 @@
-# Authoring a deck on the Particle Engine
+# Authoring a deck on the Effects Platform
 
-This branch (`particle-engine-template`) is a **reusable presentation platform**. The 3D
-particle engine, animations, theme, and slide controls are done. To make a new deck you
-only write **HTML content** — no JavaScript changes required.
+The platform is a **reusable presentation engine**: WebGL themes, animations,
+design system, and slide controls are done. To make a new deck you write
+**HTML content** (or [Deck IR JSON](platform/compose/schema.md)) — no engine
+changes required.
 
-> **Workflow:** branch a new deck off this template, e.g.
-> `git checkout particle-engine-template && git checkout -b deck/<name>`,
-> then edit `index.html` (and the brand/title). Keep the engine files untouched.
+> **Workflow:** branch a deck off `main`, e.g. `git checkout -b deck/<name>`,
+> copy `decks/cosmos-demo/` to `decks/<name>/` and edit its `index.html`
+> (or compose from JSON). Keep `platform/` untouched.
 
 ---
 
@@ -15,7 +16,7 @@ only write **HTML content** — no JavaScript changes required.
 Every slide is one `<section class="slide">` inside `<main id="stage">`:
 
 ```html
-<section class="slide content" data-slide="1" data-formation="clusters:3">
+<section class="slide content" data-slide="1" data-scene="clusters:3">
   <div class="slide-inner">
     <!-- your content -->
   </div>
@@ -24,9 +25,11 @@ Every slide is one `<section class="slide">` inside `<main id="stage">`:
 ```
 
 - `data-slide` is just a label (ordering comes from DOM order).
-- `data-formation` picks the particle artwork (see §3).
-- The dots, counter, and prev/next **update automatically** from the number of slides —
-  add or remove `<section class="slide">` blocks and everything follows.
+- `data-scene` picks the theme's background artwork (see §3).
+  `data-formation` still works as a legacy alias.
+- **Omit `data-scene`** and the theme art-directs the slide from its content:
+  covers get the hero scene, N cards get clusters, a pipeline gets a stream…
+- Dots, counter, and prev/next **update automatically** from the slide count.
 
 ### Slide layout modifiers (on the `<section>`)
 | Class | Effect |
@@ -37,14 +40,102 @@ Every slide is one `<section class="slide">` inside `<main id="stage">`:
 
 ---
 
-## 2. Animation classes (add to elements inside a slide)
+## 2. Picking a theme
+
+The deck's boot script chooses the theme — swap one import to reskin the
+entire deck:
+
+```html
+<script type="module">
+  import { mountDeck } from "./platform/engine/engine.js";
+  import Cosmos from "./platform/themes/cosmos/cosmos.js";   // or aurora
+  mountDeck(Cosmos);
+</script>
+```
+
+Also link the theme's CSS next to the engine's:
+
+```html
+<link rel="stylesheet" href="platform/engine/deck.css" />
+<link rel="stylesheet" href="platform/themes/cosmos/cosmos.css" />
+```
+
+---
+
+## 3. Scenes (`data-scene`)
+
+### Cosmos — particle formations
+
+| Spec | Vibe / good for |
+|------|-----------------|
+| `orb` | hero sphere — covers, big statements |
+| `core` | a tight, bright core offset right — "one thing" with text on the left |
+| `core-center` | same core, centered |
+| `clusters:N` | N constellations in a row — N parallel items (`clusters:3`) |
+| `split` | two clouds — a duality, "does / doesn't" |
+| `ring` | an orbital ring — cycles, access, time, flow |
+| `grid` | a scanning lattice — data, coverage, "across the estate" |
+| `stream` | a flowing horizontal band — pipelines, journeys |
+| `burst` | a celebratory explosion — finales, thank-you |
+
+### Aurora — silk moods
+
+| Spec | Vibe / good for |
+|------|-----------------|
+| `dawn` | warm violet sunrise — covers, openings |
+| `drift` | cool blue-teal silk — calm content slides |
+| `veil` | a concentrated curtain of light — one big idea |
+| `dusk` | deep and quiet — the serious beat |
+| `nova` | bright pink-gold surge — finales |
+
+### Neon Lasers — stagings
+
+| Spec | Vibe / good for |
+|------|-----------------|
+| `gate` | a fanned portal of light — covers, openings |
+| `pillars:N` | N glowing columns — N parallel ideas |
+| `sweep` | slow searchlights — calm content |
+| `tunnel` | receding rails to the vanishing point — journeys, pipelines |
+| `weave` | crossing lasers — data, structure, comparisons |
+| `strike` | a radial burst — finales |
+
+### Kinetic Tiles — patterns
+
+| Spec | Vibe / good for |
+|------|-----------------|
+| `wall` | breathing field with sparse lit accents — covers |
+| `wave` | a traveling wave — calm content, flows |
+| `columns:N` | N raised, lit bands — N parallel ideas |
+| `checker` | alternating flip-sway — comparisons, data |
+| `spiral` | rings rippling from center — cycles |
+| `cascade` | gold diagonals sweep the wall — finales |
+
+### Liquid Ink — arrangements
+
+| Spec | Vibe / good for |
+|------|-----------------|
+| `drop` | one central bloom — covers, big statements |
+| `bloom:N` | N drops in a row — N parallel ideas |
+| `wash` | soft washes at the edges — calm content |
+| `collide` | blue meets pink — dualities, either/or |
+| `torrent` | a stream of small drops — pipelines, processes |
+| `eruption` | nine colors at once — finales |
+
+Scenes **morph** between slides, so order creates motion. Pair the scene with
+the slide's idea.
+
+### Optional camera nudge
+`data-cam="x,y,z"` overrides the camera for a slide (Cosmos; Aurora ignores
+it). Higher `z` = further back.
+
+---
+
+## 4. Animation classes (add to elements inside a slide)
 
 | Class | Use it on | What it does |
 |-------|-----------|--------------|
 | `reveal` | text, kickers, ledes, notes, CTAs | fades/rises in with a 3D tilt, staggered |
 | `pop` | cards & panels | cascades in with depth + spring |
-
-Anything without these is simply visible. Keep big text on `.reveal`, grids of cards on `.pop`.
 
 ### Glowing key words
 Wrap words in `gradient-text` to make them glow and radiate:
@@ -55,37 +146,9 @@ Wrap words in `gradient-text` to make them glow and radiate:
 
 ---
 
-## 3. Particle formations (`data-formation`)
+## 5. Content components (copy-paste)
 
-| Spec | Vibe / good for |
-|------|-----------------|
-| `orb` | hero sphere — covers, big statements |
-| `core` | a tight, bright core offset to the right — "one thing" with text on the left |
-| `core-center` | same core, centered |
-| `clusters:N` | N constellations in a row — N parallel items / cards (`clusters:3`, `clusters:4`) |
-| `split` | two clouds — a duality, "does / doesn't", two facets |
-| `ring` | an orbital ring — cycles, access, time, flow |
-| `grid` | a scanning lattice — data, coverage, "across the estate" |
-| `stream` | a flowing horizontal band — pipelines, processes, journeys |
-| `burst` | a celebratory explosion — finales, thank-you, big reveals |
-
-Particles **morph** from the previous formation to the next on each transition, so order
-creates motion. Pair the formation with the slide's idea.
-
-### Optional camera nudge
-Add `data-cam="x,y,z"` to override the default camera for a slide (rarely needed):
-
-```html
-<section class="slide content" data-formation="grid" data-cam="0,0.2,15">
-```
-
-Higher `z` = further back (more of the field visible). Defaults are tuned per formation.
-
----
-
-## 4. Content components (copy-paste)
-
-All components live in `assets/css/styles.css` and use the shared glass theme.
+All components live in `platform/engine/deck.css` and use the shared glass theme.
 
 **Kicker (eyebrow):**
 ```html
@@ -101,8 +164,8 @@ All components live in `assets/css/styles.css` and use the shared glass theme.
 </div>
 ```
 
-**Card grid** — `cards c2` / `c3` / `c4`. Per-card accent via inline `--ic` (icon gradient)
-and `--ac` (glow):
+**Card grid** — `cards c2` / `c3` / `c4`. Per-card accent via inline `--ic`
+(icon gradient) and `--ac` (glow):
 ```html
 <div class="cards c3">
   <article class="card pop" style="--ic:linear-gradient(135deg,#2b88ff,#4a3fd0);--ac:#2b88ff;">
@@ -132,6 +195,14 @@ and `--ac` (glow):
 </div>
 ```
 
+**Big quote:**
+```html
+<div class="quote">
+  <blockquote class="reveal">The line you want them to remember.</blockquote>
+  <p class="attrib reveal">— Who said it</p>
+</div>
+```
+
 **People / owners** (card with initials avatar):
 ```html
 <article class="card pop" style="--ac:#2b88ff;">
@@ -141,12 +212,13 @@ and `--ac` (glow):
 </article>
 ```
 
-**Status pill** (e.g. "research"): `<span class="status reveal">Status · …</span>`
+**Status pill:** `<span class="status reveal">Status · …</span>`
 **Note line:** `<p class="note reveal">…</p>`  ·  **CTA:** `<p class="cta reveal">…</p>`
 **Presenter (cover):** `<div class="presenter reveal"><span class="dot2"></span> <span><b>Name</b> · Team</span></div>`
 
-Icons are inline `<svg viewBox="0 0 24 24"><path d="…"/></svg>` with `fill:#fff` (handled by
-`.card .ic svg`). Grab paths from any icon set.
+Icons are inline `<svg viewBox="0 0 24 24"><path d="…"/></svg>` with `fill:#fff`
+(handled by `.card .ic svg`) — a starter set lives in
+`platform/compose/icons.js`.
 
 ### Accent palette
 `--blue #2b88ff` · `--indigo #6b5bff` · `--purple #9b4dff` · `--teal #18c8b6` ·
@@ -154,40 +226,86 @@ Icons are inline `<svg viewBox="0 0 24 24"><path d="…"/></svg>` with `fill:#ff
 
 ---
 
-## 5. Branding (per deck)
+## 6. Authoring in JSON (Deck IR)
 
-In `index.html`:
-- `<title>…</title>`
-- brand label in the top bar: `<div class="logo"><span class="spark"></span> Your Title</div>`
-- footer credit: each slide's `<div class="eq-credit">© 2026 Your Org</div>`
-- the loader caption (optional): `.lbl` text
+Instead of HTML you can describe the deck as JSON and let the composer build
+the page:
 
-Theme colours and fonts live in `:root` at the top of `assets/css/styles.css`.
+```bash
+node platform/compose/build-deck.mjs my-deck.json decks/my-deck/index.html
+```
+
+Full schema + block reference: **[platform/compose/schema.md](platform/compose/schema.md)**.
+The Aurora demo (`decks/aurora-demo/`) is generated from
+`platform/compose/example-deck.json` — use it as a starting point.
+
+## 6b. Importing a PowerPoint
+
+Serve the repo and open **`/studio/`**: drop a `.pptx`, pick a theme, tweak
+the generated Deck IR if you like, and download `deck.json` + `index.html`
+into `decks/<name>/`. Everything runs client-side. The same pipeline works
+headless:
+
+```bash
+node platform/ingest/ingest-pptx.mjs talk.pptx decks/talk/deck.json tiles
+node platform/compose/build-deck.mjs decks/talk/deck.json decks/talk/index.html
+```
+
+The mapper re-expresses content in the platform's design system (bullets →
+cards or moves, prose → ledes, images → framed media, closings → finales) and
+leaves scenes unset so the chosen theme art-directs each slide.
 
 ---
 
-## 6. Run & deploy
+## 7. Branding (per deck)
+
+In your deck HTML (or Deck IR `meta`):
+- `<title>…</title>`
+- brand label in the top bar: `<div class="logo"><span class="spark"></span> Your Title</div>`
+- footer credit: each slide's `<div class="eq-credit">© 2026 Your Org</div>`
+- the loader caption: `.lbl` text
+
+Theme colours and fonts live in `:root` at the top of `platform/engine/deck.css`.
+
+---
+
+## 8. Run & deploy
 
 ```bash
 python3 -m http.server 8000   # then open http://localhost:8000
 ```
-Must be served over `http(s)://` (ES module import maps don't work from `file://`).
-No build step, no network needed at runtime — Three.js + GSAP are vendored in
-`assets/vendor/`.
+Must be served over `http(s)://` (ES module import maps don't work from
+`file://`). No build step, no network needed at runtime — Three.js + GSAP are
+vendored in `assets/vendor/`.
 
 Deploy: push the deck branch and enable **GitHub Pages → Deploy from branch (root)**.
 
+Or export the deck out of the repo entirely:
+
+```bash
+node platform/export/export-single.mjs decks/<name>/deck.json talk.html   # one file, runs anywhere
+node platform/export/export-bundle.mjs decks/<name>/deck.json talk.zip   # folder for any static host
+```
+
+Studio has the same exports as buttons, plus a one-click GitHub Pages deploy.
+
 ---
 
-## 7. Where things live
+## 9. Where things live
 
 ```
-index.html            # the deck — the only file you edit for content
-assets/css/styles.css # theme tokens + components + chrome
-assets/js/scene.js    # particle engine + formation registry  (don't edit for content)
-assets/js/app.js      # slide controller + navigation          (don't edit for content)
-assets/vendor/        # three.js + gsap
+index.html                   # platform landing/gallery
+decks/cosmos-demo/           # the Cosmos template deck — copy to start a new deck
+decks/<name>/index.html      # additional decks (hand-written or composed)
+platform/engine/deck.css     # design system + components + chrome
+platform/engine/engine.js    # slide controller + navigation   (don't edit for content)
+platform/engine/theme.js     # Theme contract                  (don't edit for content)
+platform/themes/<id>/        # one folder per theme: <id>.js + <id>.css
+platform/compose/            # Deck IR schema + composer + CLI
+assets/vendor/               # three.js + gsap
 ```
 
-Adding a brand-new formation? That's an engine change: add a generator + a registry entry
-in `scene.js` (`_registry`), then reference it by name with `data-formation`.
+Adding a brand-new theme? Extend `ThemeBase` (`platform/engine/theme.js`),
+implement `_applyScene()` + a scene vocabulary + `sceneFor()` hints, ship
+`<id>.js` + `<id>.css` in `platform/themes/<id>/`, and reference it from a
+deck's boot script. Cosmos (`cosmos.js`) is the reference implementation.
