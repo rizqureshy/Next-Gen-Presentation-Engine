@@ -6,7 +6,8 @@ design system, and slide controls are done. To make a new deck you write
 changes required.
 
 > **Workflow:** branch a deck off `main`, e.g. `git checkout -b deck/<name>`,
-> then edit `index.html` (or compose from JSON). Keep `platform/` untouched.
+> copy `decks/cosmos-demo/` to `decks/<name>/` and edit its `index.html`
+> (or compose from JSON). Keep `platform/` untouched.
 
 ---
 
@@ -293,7 +294,8 @@ Studio has the same exports as buttons, plus a one-click GitHub Pages deploy.
 ## 9. Where things live
 
 ```
-index.html                   # the Cosmos template deck — edit for content
+index.html                   # platform landing/gallery
+decks/cosmos-demo/           # the Cosmos template deck — copy to start a new deck
 decks/<name>/index.html      # additional decks (hand-written or composed)
 platform/engine/deck.css     # design system + components + chrome
 platform/engine/engine.js    # slide controller + navigation   (don't edit for content)

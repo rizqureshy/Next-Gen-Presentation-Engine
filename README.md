@@ -24,10 +24,10 @@ are vendored, and decks deploy as-is to GitHub Pages.
 |---|---|---|
 | ![Lasers](docs/preview/05-lasers.png) | ![Tiles](docs/preview/06-tiles.png) | ![Ink](docs/preview/07-ink.png) |
 
-**Demos:** root `index.html` is the Cosmos template deck; each theme has a
-showcase in [`decks/`](decks/) (`aurora-demo`, `lasers-demo`, `tiles-demo`,
-`ink-demo`) generated from Deck IR by the composer — the IR source sits next
-to each deck as `deck.json` (aurora's is
+**Demos:** root `index.html` is the platform landing/gallery; every theme has
+a showcase in [`decks/`](decks/) (`cosmos-demo`, `aurora-demo`, `lasers-demo`,
+`tiles-demo`, `ink-demo`, plus `pptx-demo` — an ingested PowerPoint). Composed
+demos keep their IR source next to them as `deck.json` (aurora's is
 [`platform/compose/example-deck.json`](platform/compose/example-deck.json),
 doubling as the schema example).
 
@@ -112,7 +112,8 @@ import in HTML). Dots, counter, and navigation update automatically.
 ## Project layout
 
 ```
-index.html                    # Cosmos template deck (GitHub Pages entry)
+index.html                    # platform landing/gallery (GitHub Pages entry)
+decks/cosmos-demo/            # the Cosmos template deck — copy this to start a new HTML deck
 decks/<theme>-demo/           # one showcase deck per theme (deck.json + composed index.html)
 platform/
   engine/
